@@ -2,10 +2,9 @@
 /*
 Localiza y corrige los errores de este programa PHP:
 ```php
-<? php
+<?php
 echo '¿Cómo estás';
 echo 'Estoy bien, gracias.';
-??>
+?>
 ```
 **/
-echo "Probando os commit"
