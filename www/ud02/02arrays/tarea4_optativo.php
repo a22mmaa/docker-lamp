@@ -42,10 +42,5 @@ Con la información anterior, realiza las seguintes tareas:
         echo "</tr>";
     }
 
-
-
-
-
-
 ?>
 </table>
