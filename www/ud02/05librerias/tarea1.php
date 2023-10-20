@@ -1,8 +1,16 @@
 <?php 
+	include("utilidades.php");
+
 /**Realiza los seguintes pasos:
 
 1. Crea un fichero PHP a modo de librería con todas las funciones creadas, llámale utilidades.php.
 2. Escribe la diferencia entre `include`, `include_once`, `require` y `require_once` dentro del código de la librería de funciones como un comentario del código fuente.
+
+	- ìnclude() inclúe e interepreta o contido do ficheiro, mesmo se este xa foi incluído anteriormente
+	- `include_onde()` é semellante á anterior, mais neste caso se o arquivo xa foi incluído antes, non o volve facer.
+	- `require()` tamén se parece a `include()` no que respecto á inclusión e interpretación, pero este produce un erro fatal en caso de que algo falle.
+	- `require_once()`, como se pode intuir, reúne as funcións de `require()`, e igual que `include_once()`, só inclúe unha vez.
+
 3. Divide el `index.php` de tal forma que tengas distintos recursos repartidos en ficheros:
 
 Fichero         | Contiene el `div` con `id`

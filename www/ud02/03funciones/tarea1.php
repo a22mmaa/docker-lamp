@@ -77,7 +77,11 @@ e lonxitude) predeterminadas do teu servidor.
 */
     echo "\nExercicio 8\n";
     // Non encontro "como axustar as coordenadas (latitude e lonxitude) predeterminadas do teu servidor", polo que me limito a modificar as coordenadas por defecto da función `date_sun_info`.
-    $sol = date_sun_info(time(), 42.633333, -8.55);
+    
+    $latitude = ini_get("date.default_latitude"); //extraigo latitud
+    $lonxitude = ini_get("date.default_longitude");//longitud
+    
+    $sol = date_sun_info(time(), $latitude, $lonxitude);
     foreach ($sol as $chave => $valor) {
         if ($chave == 'sunrise') {
             echo "Saída do sol: ". date("H:i:s", $valor) . "\n";
