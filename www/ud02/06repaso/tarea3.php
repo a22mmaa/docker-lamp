@@ -85,33 +85,36 @@
         if (empty($num1) == false) {
             if (is_numeric($num1)) {
                 $n1=$num1;
-            } else {throw new Exception("Erro");}
-        } else {throw new Exception("Erro");}
-    } else {throw new Exception("Erro");}
+            } else {throw new Exception("Erro no primeiro número. Non é un número");}
+        } else {throw new Exception("Erro no primeiro número. Está baleiro.");}
+    } else {throw new Exception("Erro no primeiro número. Non ten valor.");}
 
     if (isset($num2)) {
         if (empty($num2) == false) {
             if (is_numeric($num2)) {
                 $n2=$num2;
-            } else {throw new Exception("Erro");}
-        } else {throw new Exception("Erro");}
-    } else {throw new Exception("Erro");}
+            } else {throw new Exception("Erro no segundo número. Non é un número");}
+        } else {throw new Exception("Erro no segundo número. Está baleiro.");}
+    } else {throw new Exception("Erro no segundo número. Non ten valor.");}
+
 
     if (isset($num3)) {
         if (empty($num3) == false) {
             if (is_numeric($num3)) {
                 $n3=$num3;
-            } else {throw new Exception("Erro");}
-        } else {throw new Exception("Erro");}
-    } else {throw new Exception("Erro");}
+            } else {throw new Exception("Erro no terceiro número. Non é un número");}
+        } else {throw new Exception("Erro no terceiro número. Está baleiro.");}
+    } else {throw new Exception("Erro no terceiro número. Non ten valor.");}
+
 
     if (isset($num4)) {
         if (empty($num4) == false) {
             if (is_numeric($num4)) {
                 $n4=$num4;
-            } else {throw new Exception("Erro");}
-        } else {throw new Exception("Erro");}
-    } else {throw new Exception("Erro");}
+            } else {throw new Exception("Erro no cuarto número. Non é un número");}
+        } else {throw new Exception("Erro no cuarto número. Está baleiro.");}
+    } else {throw new Exception("Erro no cuarto número. Non ten valor.");}
+
 
     
 

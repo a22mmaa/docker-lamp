@@ -85,6 +85,23 @@ A = anho mod 19 B = anho mod 4 C = anho mod 7 D = (19 * A + 24) mod 30 E = (2 * 
 
 Donde N indica el número de día del mes de marzo (si N es igual o menor que 31) o abril (si es mayor que 31). Contruir un programa que determina las fechas de domingos de pascua dado el año. Nota: Emplea únicamente las variables anho, d y n.
 */
-    
+    $anho = readline("O ano para o que se desexa calcular é: ");
+
+    $a = $anho % 19;
+    $b = $anho % 4;
+    $c = $anho % 7;
+    $d = (19 * $a + 24) % 30;
+    $e = (2 * $b + 4 * $c + 6 * $d + 5) % 7;
+    $n = (22 + $d + $e);
+
+    if ($n <= 31) {
+        $dia = $n;
+        $mes = "marzo";
+    } else {
+        $dia = $n - 31;
+        $mes = "abril";
+    }
+
+    echo "Para o ano ".$anho.", o domingo de Pascua será o día ".$dia." de ".$mes.".";
 
 ?>
