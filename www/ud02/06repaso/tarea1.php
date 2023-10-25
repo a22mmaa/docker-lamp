@@ -1,11 +1,12 @@
 <?php
 
+echo "\nExercicio 1\n";
 /* ¿Cuál es el resultado de las siguientes expresiones?. Comprueba el resultado.
         70 * 10 – 5 % 3 * 4 + “9”
         (( 5 + 3) / 2 * 3) / 2 - (int) 28.75 / 4 + 29 % 3 * 4
         $r =’C’ – (double) 5 / 2 + 3.5 + 0.4 (Nota ‘C’ é o ascii: 67)
 */
-    echo "\nExercicio 1\n";
+    
     // A expresión `70 * 10 – 5 % 3 * 4 + “9”` ten algún erro de formato, quizá por mala codificación en Windows. Hai que cambiar a liña por `-` e, en principio, tamén as aspas de 9. Podemos comprobar que en PHP, a pesar de que estamos a escribir 9 con aspas, o que aparantemente sería un String, o número é interpretado como un enteiro e forma parte do resultado. O resultado é 701.
     echo 70 * 10 - 5 % 3 * 4 + "9" ."\n";
     echo 70 * 10 - 5 % 3 * 4 + 9 . "\n";
@@ -18,8 +19,8 @@
     echo $r;
     
 
-/*     Indica cuál sería la salida del siguiente programa:
-
+echo "\nExercicio 2\n";
+/*  Indica cuál sería la salida del siguiente programa:
     - $m = 99;
     - $n = ++$m;
     - echo “m = $m, n = $n\n”;
@@ -28,7 +29,7 @@
     - printf(“m = %d \n”, $m++); // printf é unha func. de C para imprimir que se pode empregar en PHP.
     - printf(“m = %d \n”,++$m);
 */
-    echo "\nExercicio 2\n";
+    
     // Resultado: n = 100 e m = 103. Comprobamos:
     $m = 99;
     $n = ++$m;
@@ -40,23 +41,24 @@
 
 
 
-
-/*     Indica cuál sería la salida del siguiente programa:
-
-$n = 5;
-$t = ++$n * --$n;
-echo "n = $n, t = $t\n";
-printf("%d %d %d", ++$n, ++$n, ++$n);
+echo "\nExercicio 3\n";
+/*  Indica cuál sería la salida del siguiente programa:
+    $n = 5;
+    $t = ++$n * --$n;
+    echo "n = $n, t = $t\n";
+    printf("%d %d %d", ++$n, ++$n, ++$n);
 */
-    echo "\nExercicio 3\n";
+    
     // Resultado: n=5, t=30 e logo 6, 7 e 8. Comprobamos:
     $n = 5;
     $t = ++$n * --$n;
     echo "n = $n, t = $t\n";
     printf("%d %d %d", ++$n, ++$n, ++$n);
 
+
+echo "\nExercicio 4\n";
 /*     Escribe un programa que calcule el factorial de un número. */
-    echo "\nExercicio 4\n"; 
+     
     function calcular_factorial($n) {
         $factorial=1;
         for ($i = 1; $i <= $n; $i++) {
@@ -65,13 +67,16 @@ printf("%d %d %d", ++$n, ++$n, ++$n);
         echo $factorial;
     }
     calcular_factorial(5);
-    echo "aaa";
 
+
+echo "\nExercicio 5\n";
 /*     Escribir una página web que dados unos segundos (recogidos en un formulario)
  exprese su equivalente en semanas, días, horas, minutos y segundos.
  */
-    echo "\nExercicio 5\n";     
+    // Ver tarea1-5a.php e tarea1-5b.php
 
+
+ echo "\nExercicio 6\n"; 
 /*     El domingo de pascua es el primer domingo después de la primera luna llena
     posterior al equinoccio de primavera y se determina mediante el siguiente
     cálculo sencillo:
@@ -80,6 +85,6 @@ A = anho mod 19 B = anho mod 4 C = anho mod 7 D = (19 * A + 24) mod 30 E = (2 * 
 
 Donde N indica el número de día del mes de marzo (si N es igual o menor que 31) o abril (si es mayor que 31). Contruir un programa que determina las fechas de domingos de pascua dado el año. Nota: Emplea únicamente las variables anho, d y n.
 */
-    echo "\nExercicio 6\n"; 
+    
 
 ?>
