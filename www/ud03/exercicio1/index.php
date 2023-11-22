@@ -82,6 +82,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $provincia = test_input($_POST["provincia"]);
 }
 
+// Inserción "normal" de rexistros:
+/*
+$sql = "INSERT INTO usuarios (nombre, apellidos, edad, provincia)
+VALUES ($nome, $apelido, $idade, $provincia);"
+*/
+
+// Inserción de rexistros con consultas preparadas:
+
+$stmt = $conexion->prepare("INSERT INTO usuarios (nombre, apellidos, edad, provincia)
+VALUE (?,?,?,?)");
+$stmt->bind_param("ssis", $nome, $apelido, $idade, $email);
+
+$stmt->execute();
+
+if($conexion->query($sql)){
+  echo "Novo rexistro creado";
+ }else{
+     echo "Non se puido crear o rexistro".$conexion->error;
+ } 
+
 /*
 3.1. Registro de usuarios.
 - Crea un formulario para el registro de usuarios. Deberá contener los datos nombre, apellido, edad y provincia.
@@ -90,7 +110,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 Optativo. Usa consultas preparadas. 
 */
 
+echo "
+<table>
+ <th><td>Usuario</td></th>
+"
 
+for 
+
+
+echo "
+</table>
+"
 
 
 
