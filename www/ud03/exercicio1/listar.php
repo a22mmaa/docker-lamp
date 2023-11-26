@@ -10,22 +10,20 @@
 </head>
 
 <body>
-    <?php
-        include("lib/base_datos.php");
-        $conexion = get_conexion();
-        //crear_bd_tienda($conexion);
-        //seleccionar_bd_tienda($conexion);
-        //crear_tabla_usuario($conexion);
-
-    ?>
-    <h1>Tienda IES San Clemente</h1>
+    <h1>Lista de usuarios</h1>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
-    <p>
-        <a class="btn btn-primary" href="dar_de_alta.php" role="button"> Alta usuarios</a>
-        <a class="btn btn-primary" href="listar.php" role="button"> Listar usuarios</a>
-    </p>
+    <p>Lista de usuarios con enlaces para borrar y editar</p>
+    <?php
+        //Obter conexión
+        //Seleccionar bd
+        //Consulta obtención dos usuarios (array)
+        //Crear lista de usuarios
+        //  - cada usuario mostra dous enlaces (editar e borrar)
+        //  - editar.php?id=4
+        //  - borrar.php?id=7
+    ?>
     <footer>
         <p>
             <a href='index.php'>Página de inicio</a>
