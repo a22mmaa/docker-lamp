@@ -10,27 +10,11 @@
 1. Crear una base de datos que se llame tienda. Sólo una vez, en el caso de que ya esté creada no volver a crearla
 */
 
-// Creamos a conexión con MySQLi Orientado a obxectos
 
-$conexion = new mysqli('db', 'root', 'test', 'dbname');
-
-// Comprobamos a conexión
-
-$erro = $conexion->connect_errno;
-if ($erro != null) {
-  die("Produciuse un erro na conexión: ".$conexion->connect_error". Código de erro: ".$erro);
-}
-echo "Conexión correcta."
 
 // Creamos a base de datos
 
-$sql = "CREATE DATABASE IF NOT EXISTS tenda";
 
-if($conexion->query($sql)) {
-  echo "Base de datos 'tenda' creada correctamente";
-} else {
-  "Erro na creación na base de datos. ".$conexion->error;
-}
 
 /*
 2. Crea una nueva tabla llamada usuarios. Sólo una vez, en el caso de que ya esté creada no volver a crearla. Los datos que almacenaremos en dicha tabla son (...).
@@ -55,7 +39,7 @@ $sql = "CREATE TABLE IF NOT EXISTS usuarios(
 // Imprimimos formulario
 
 echo "
-  <form method='post' action='<?php echo localhost($_SERVER['PHP_SELF']); ?>'>
+  <form method='post' action="<?php echo localhost($_SERVER['PHP_SELF']); ?>">
     <p>Nome: <input type="text" name="nome" /></p>
     <p>Apelido: <input type="text" name="apelido" /></p>
     <p>Idade: <input type="number" name="idade" /></p>
