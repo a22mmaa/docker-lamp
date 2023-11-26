@@ -1,5 +1,5 @@
 <?php
-crear_tabla_usuario($conexion) {
+function crear_tabla_usuario($conexion) {
     $sql = "CREATE TABLE IF NOT EXISTS usuarios(
         id INT(6) AUTO_INCREMENT PRIMARY KEY,
         nombre VARCHAR(50),
