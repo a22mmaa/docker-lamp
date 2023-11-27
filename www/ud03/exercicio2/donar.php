@@ -13,17 +13,19 @@
     </script>
     <?php
 
+    // QUEDEI AQUI!
+
+
     $id = $donante = $fecha_donacion = $fecha_proxima_donacion = "";
+    $id_donante = $_GET["id"];
 
-
-        // QUEDEI AQUI!
         
     include("lib/utilidades.php");
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = test_input($_POST["id"]);
-        $donante = test_input($_POST["apellido"]);
-        $fecha_donacion = test_input($_POST["edad"]);
-        $fecha_proxima_donacion = test_input($_POST["grupo_sanguineo"]);
+        $donante = test_input($_POST["donante"]);
+        $fecha_donacion = test_input($_POST["fecha_donacion"]);
+        $fecha_proxima_donacion = test_input($_POST["fecha_proxima_donacion"]);
 
         donar($id, $donante, $fecha_donacion, $fecha_proxima_donacion);
     }
@@ -38,6 +40,7 @@
             <input type="hidden" name="donante" value="<?php echo $id_donante; ?>">
             <p>Data donación: <input type="date" name="fecha_donacion" /></p>
             <input type="hidden" name="fecha_proxima_donacion" value="<?php echo calcular_proxima_donacion($fecha_donacion); ?>">
+            <p><input type="submit" /></p>
         </form>
     </div>
 
