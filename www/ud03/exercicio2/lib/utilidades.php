@@ -1,14 +1,16 @@
 <?php
 include("lib/base_datos.php");
 
-function test_input($data) {
+function test_input($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
-    }
+}
 
-function novo_donante($nombre, $apellido, $edad, $grupo_sanguineo, $cp, $telefono) {
+function novo_donante($nombre, $apellido, $edad, $grupo_sanguineo, $cp, $telefono)
+{
 
     try {
         $conPDO = conexion_bbdd();
@@ -31,16 +33,17 @@ function novo_donante($nombre, $apellido, $edad, $grupo_sanguineo, $cp, $telefon
 }
 
 
-function consultar_donantes() {
-        $conPDO = conexion_bbdd();
-        $conPDO->exec("USE donacion");
+function consultar_donantes()
+{
+    $conPDO = conexion_bbdd();
+    $conPDO->exec("USE donacion");
 
-        $stmt = $conPDO->prepare("SELECT id, nombre, apellidos, edad, grupo_sanguineo, codigo_postal, telefono_movil FROM donantes");
-	    $stmt->execute();
+    $stmt = $conPDO->prepare("SELECT id, nombre, apellidos, edad, grupo_sanguineo, codigo_postal, telefono_movil FROM donantes");
+    $stmt->execute();
 
-        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if (count($resultados) > 0) {
+    if (count($resultados) > 0) {
         echo "<table border='1'>";
         echo "<tr>";
         echo "<th>Nombre</th>";
@@ -72,7 +75,8 @@ function consultar_donantes() {
     }
 }
 
-function consultar_donante_porid($id_donante) {
+function consultar_donante_porid($id_donante)
+{
     $conPDO = conexion_bbdd();
     $conPDO->exec("USE donacion");
 
@@ -108,35 +112,36 @@ function consultar_donante_porid($id_donante) {
 
 }
 
-function consultar_donaciones($id_donante) {
+function consultar_donaciones($id_donante)
+{
     $conPDO = conexion_bbdd();
     $conPDO->exec("USE donacion");
 
     $stmt = $conPDO->prepare("SELECT donante, fecha_donacion, fecha_proxima_donacion FROM historico WHERE donante = :id_donante ORDER BY fecha_donacion");
     $stmt->bindParam(':id_donante', $id_donante, PDO::PARAM_INT);
-    
+
     $stmt->execute();
 
     $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (count($resultados) > 0) {
-    echo "<h2>Listado de donacións</h2>";
-    echo "<table border='1'>";
-    echo "<tr>";
-    echo "<th>donante</th>";
-    echo "<th>fecha_donacion</th>";
-    echo "<th>fecha_proxima_donacion</th>";
-    echo "</tr>";
-
-    foreach ($resultados as $row) {
+        echo "<h2>Listado de donacións</h2>";
+        echo "<table border='1'>";
         echo "<tr>";
-        echo "<td>" . $row['donante'] . "</td>";
-        echo "<td>" . $row['fecha_donacion'] . "</td>";
-        echo "<td>" . $row['fecha_proxima_donacion'] . "</td>";
+        echo "<th>donante</th>";
+        echo "<th>fecha_donacion</th>";
+        echo "<th>fecha_proxima_donacion</th>";
         echo "</tr>";
-    }
 
-    echo "</table>";
+        foreach ($resultados as $row) {
+            echo "<tr>";
+            echo "<td>" . $row['donante'] . "</td>";
+            echo "<td>" . $row['fecha_donacion'] . "</td>";
+            echo "<td>" . $row['fecha_proxima_donacion'] . "</td>";
+            echo "</tr>";
+        }
+
+        echo "</table>";
     } else {
         echo "<p>Este usuario non fixo donacións.</p>";
     }
