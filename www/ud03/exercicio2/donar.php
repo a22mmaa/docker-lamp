@@ -17,6 +17,15 @@
     <h1>Alta de donación</h1>
     <div>
         Formulario para dar de alta una donación
+        <?php
+        include("lib/utilidades.php");
+        ?>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="hidden" name="donante" value="<?php echo $id_donante; ?>">
+            <p>Data donación: <input type="date" name="fecha_donacion" /></p>
+            <input type="hidden" name="fecha_proxima_donacion" value="<?php echo calcular_proxima_donacion($fecha_donacion); ?>">
+        </form>
     </div>
 
     <footer>

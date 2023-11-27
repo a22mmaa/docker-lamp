@@ -145,4 +145,11 @@ function consultar_donaciones($id_donante)
     }
 }
 
+
+function calcular_proxima_donacion($fecha_donacion) {
+    $data_futura_timestamp = strtotime($fecha_donacion . '+4 months');
+    $data_futura = date('Y-m-d', $data_futura_timestamp);
+    return $data_futura;
+}
+
 ?>
