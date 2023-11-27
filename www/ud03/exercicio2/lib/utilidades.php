@@ -1,14 +1,16 @@
 <?php
 include("lib/base_datos.php");
 
-function test_input($data) {
+function test_input($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }
 
-function novo_donante($nombre, $apellido, $edad, $grupo_sanguineo, $cp, $telefono) {
+function novo_donante($nombre, $apellido, $edad, $grupo_sanguineo, $cp, $telefono)
+{
 
     try {
         $conPDO = conexion_bbdd();
@@ -27,7 +29,6 @@ function novo_donante($nombre, $apellido, $edad, $grupo_sanguineo, $cp, $telefon
     } catch (PDOException $e) {
         echo "Error al registrar el donante: " . $e->getMessage();
     }
-
 }
 
 
@@ -107,7 +108,6 @@ function consultar_donante_porid($id_donante)
     } else {
         echo "Non se encontraron donantes con este identificador.";
     }
-
 }
 
 function consultar_donaciones($id_donante)
@@ -146,10 +146,9 @@ function consultar_donaciones($id_donante)
 }
 
 
-function calcular_proxima_donacion($fecha_donacion) {
+function calcular_proxima_donacion($fecha_donacion)
+{
     $data_futura_timestamp = strtotime($fecha_donacion . '+4 months');
     $data_futura = date('Y-m-d', $data_futura_timestamp);
     return $data_futura;
 }
-
-?>
