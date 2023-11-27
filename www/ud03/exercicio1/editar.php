@@ -14,11 +14,9 @@
     <?php
 
         //Obter id de $_GET
-        $id_editar = isset($_GET['id']) ? $_GET['id'] : null;
+        $id_editar;
 
-        if($id_editar === null) {
-            die("<p><a href='index.php'>Página de inicio</a></p>");
-        }
+        $id_editar = isset($_GET['id']) ? $_GET['id'] : null;
 
         //Conexión
         include("lib/base_datos.php");
@@ -30,45 +28,46 @@
         //Obter os datos de $_POST
         $nome = $apelido = $idade = $provincia = "";
 
-        
-        
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        include("lib/utilidades.php");
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = test_input($_POST["id"]);
             $nome = test_input($_POST["nome"]);
             $apelido = test_input($_POST["apelido"]);
             $idade = test_input($_POST["idade"]);
             $provincia = test_input($_POST["provincia"]);
 
 
-            if($nome==false || $apelido==false || $idade==false || $provincia==false) {
+            if($id == false || $nome==false || $apelido==false || $idade==false || $provincia==false) {
                 echo "Todos os campos son obrigatorios";
             } else {
-                editar($conexion, $id_editar, $nome, $apelido, $idade, $provincia);
+                editar($conexion, $nome, $apelido, $idade, $provincia, $id);
             }
         }
-
         //Executar UPDATE
-
-
-        
-
 
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
 
-    <p>Datos para editar</p>
     <?php
         //Consultar datos de ese id
-        include("lib/utilidades.php");
-        consultar_usuarios($conexion, $id_editar);
+        if ($id_editar) {
+            echo "<p>Datos para editar</p>";
+            consultar_usuarios($conexion, $id_editar);
+        } else {
+            die("<p><a href='index.php'>Página de inicio</a></p>");
+        }
+
     ?>
     
     <p>Formulario de edición</p>
-    <!-- o "action" chama a editar.php de xeito reflexivo-->
 
     <div class="form">
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <input type="hidden" name="id" value="<?php echo $id_editar; ?>">
             <p>Nome: <input type="text" name="nome" /></p>
             <p>Apelido: <input type="text" name="apelido" /></p>
             <p>Idade: <input type="number" name="idade" /></p>

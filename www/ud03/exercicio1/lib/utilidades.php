@@ -57,7 +57,7 @@ function consultar_usuarios($conexion, $id_editar) {
     if ($conexion->connect_error) {
         die("Erro de conexión: " . $conexion->connect_error);
     }
-    $sql = "SELECT nombre, apellidos, edad, provincia FROM usuarios WHERE id=$id_editar";
+    $sql = "SELECT id, nombre, apellidos, edad, provincia FROM usuarios WHERE id=$id_editar";
 
     $resultados = $conexion->query($sql);
 
@@ -74,11 +74,10 @@ function consultar_usuarios($conexion, $id_editar) {
         }
         echo "</table>";
     }
-
 }
 
 
-function editar($conexion, $id_editar, $nome, $apelido, $idade, $provincia) {
+function editar($conexion, $nome, $apelido, $idade, $provincia, $id) {
     if ($conexion->connect_error) {
         die("Erro de conexión: " . $conexion->connect_error);
     }
@@ -95,7 +94,7 @@ function editar($conexion, $id_editar, $nome, $apelido, $idade, $provincia) {
     $apellido = $apelido;
     $edad = $idade;
     $provincia_es = $provincia;
-    $id = $id_editar;
+    $id = $id;
 
     if ($stmt->execute()) {
         echo "Actualizado correctamente";

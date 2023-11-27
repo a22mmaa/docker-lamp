@@ -17,6 +17,10 @@
     <h1>Gestión donacion de Sangre</h1>
     <div>
         Listado de donantes
+        <?php
+            include("lib/utilidades.php");
+            consultar_donantes();
+        ?>
     </div>
 
     <footer>
