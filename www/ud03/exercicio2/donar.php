@@ -13,9 +13,11 @@
     </script>
     <?php
 
-    $nombre = $apellido = $edad = $grupo_sanguineo = $cp = $telefono = "";
+    $id = $donante = $fecha_donacion = $fecha_proxima_donacion = "";
 
 
+        // QUEDEI AQUI!
+        
     include("lib/utilidades.php");
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = test_input($_POST["id"]);
@@ -23,7 +25,7 @@
         $fecha_donacion = test_input($_POST["edad"]);
         $fecha_proxima_donacion = test_input($_POST["grupo_sanguineo"]);
 
-        novo_donante($nombre, $apellido, $edad, $grupo_sanguineo, $cp, $telefono);
+        donar($id, $donante, $fecha_donacion, $fecha_proxima_donacion);
     }
 
     ?>

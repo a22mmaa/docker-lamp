@@ -152,3 +152,22 @@ function calcular_proxima_donacion($fecha_donacion)
     $data_futura = date('Y-m-d', $data_futura_timestamp);
     return $data_futura;
 }
+
+function donar($id, $donante, $fecha_donacion, $fecha_proxima_donacion)
+{
+    try {
+        $conPDO = conexion_bbdd();
+        $conPDO->exec("USE donacion");
+        $stmt = $conPDO->prepare("INSERT INTO historico (donante, fecha_donacion, fecha_proxima_donacion) VALUES (:donante, :fecha_donacion, :fecha_proxima_donacion)");
+        $stmt->bindParam(':donante', $donante);
+        $stmt->bindParam(':fecha_donacion', $fecha_donacion);
+        $stmt->bindParam(':fecha_proxima_donacion', $fecha_proxima_donacion);
+
+        $stmt->execute();
+
+        echo "Donante rexistrado";
+    } catch (PDOException $e) {
+        echo "Error al registrar el donante: " . $e->getMessage();
+    }
+}
+
