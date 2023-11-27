@@ -15,6 +15,7 @@
         $conexion = get_conexion();
         crear_bd_tienda($conexion);
         seleccionar_bd_tienda($conexion);
+        include("lib/utilidades.php");
         crear_tabla_usuario($conexion);
 
     ?>

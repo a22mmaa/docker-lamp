@@ -36,55 +36,6 @@ $sql = "CREATE TABLE IF NOT EXISTS usuarios(
 */
 
 
-// Imprimimos formulario
-
-echo "
-  <form method='post' action="<?php echo localhost($_SERVER['PHP_SELF']); ?>">
-    <p>Nome: <input type="text" name="nome" /></p>
-    <p>Apelido: <input type="text" name="apelido" /></p>
-    <p>Idade: <input type="number" name="idade" /></p>
-    <p>Provincia: <input type="text" name="provincia" /></p>
-    <p><input type="submit" /></p>
-  </form>
-"
-
-// Definimos variábeis e verificamos 
-
-$nome = $apelido = $idade = $provincia = "";
-
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $nome = test_input($_POST["nome"]);
-  $apelido = test_input($_POST["apelido"]);
-  $idade = test_input($_POST["idade"]);
-  $provincia = test_input($_POST["provincia"]);
-}
-
-// Inserción "normal" de rexistros:
-/*
-$sql = "INSERT INTO usuarios (nombre, apellidos, edad, provincia)
-VALUES ($nome, $apelido, $idade, $provincia);"
-*/
-
-// Inserción de rexistros con consultas preparadas:
-
-$stmt = $conexion->prepare("INSERT INTO usuarios (nombre, apellidos, edad, provincia)
-VALUE (?,?,?,?)");
-$stmt->bind_param("ssis", $nome, $apelido, $idade, $email);
-
-$stmt->execute();
-
-if($conexion->query($sql)){
-  echo "Novo rexistro creado";
- }else{
-     echo "Non se puido crear o rexistro".$conexion->error;
- } 
 
 /*
 3.1. Registro de usuarios.

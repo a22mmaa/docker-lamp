@@ -17,8 +17,12 @@
     <p>Lista de usuarios con enlaces para borrar y editar</p>
     <?php
         //Obter conexión
+        include("lib/base_datos.php");
+        $conexion = get_conexion();
         //Seleccionar bd
+        seleccionar_bd_tienda($conexion);
         //Consulta obtención dos usuarios (array)
+        
         //Crear lista de usuarios
         //  - cada usuario mostra dous enlaces (editar e borrar)
         //  - editar.php?id=4
