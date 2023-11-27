@@ -16,11 +16,10 @@
     <br>
     <h1>Gestión donacion de Sangre</h1>
     <div>
-        Listado de donaciones
         <?php
         $id_donante = $_GET["id"];
-        echo $id_donante;
         include("lib/utilidades.php");
+        consultar_donante_porid($id_donante);
         consultar_donaciones($id_donante);
         ?>
     </div>

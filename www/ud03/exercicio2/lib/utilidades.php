@@ -72,18 +72,55 @@ function consultar_donantes() {
     }
 }
 
+function consultar_donante_porid($id_donante) {
+    $conPDO = conexion_bbdd();
+    $conPDO->exec("USE donacion");
+
+    $stmt = $conPDO->prepare("SELECT id, nombre, apellidos, edad, grupo_sanguineo FROM donantes WHERE id = :id_donante");
+    $stmt->bindParam(':id_donante', $id_donante);
+    $stmt->execute();
+
+    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($resultados) > 0) {
+        echo "<h2>Datos donante:</h2>";
+        echo "<table border='1'>";
+        echo "<tr>";
+        echo "<th>Nombre</th>";
+        echo "<th>Apellidos</th>";
+        echo "<th>Edad</th>";
+        echo "<th>Grupo Sanguíneo</th>";
+        echo "</tr>";
+
+        foreach ($resultados as $row) {
+            echo "<tr>";
+            echo "<td>" . $row['nombre'] . "</td>";
+            echo "<td>" . $row['apellidos'] . "</td>";
+            echo "<td>" . $row['edad'] . "</td>";
+            echo "<td>" . $row['grupo_sanguineo'] . "</td>";
+            echo "</tr>";
+        }
+
+        echo "</table>";
+    } else {
+        echo "Non se encontraron donantes con este identificador.";
+    }
+
+}
+
 function consultar_donaciones($id_donante) {
     $conPDO = conexion_bbdd();
     $conPDO->exec("USE donacion");
 
-    $stmt = $conPDO->prepare("SELECT donante, fecha_donacion, fecha_proxima_donacion FROM historico WHERE donante = :id_donante");
-    $stmt->bindParam(':id_donante', $id_donante);
+    $stmt = $conPDO->prepare("SELECT donante, fecha_donacion, fecha_proxima_donacion FROM historico WHERE donante = :id_donante ORDER BY fecha_donacion");
+    $stmt->bindParam(':id_donante', $id_donante, PDO::PARAM_INT);
     
     $stmt->execute();
 
     $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (count($resultados) > 0) {
+    echo "<h2>Listado de donacións</h2>";
     echo "<table border='1'>";
     echo "<tr>";
     echo "<th>donante</th>";
@@ -101,7 +138,7 @@ function consultar_donaciones($id_donante) {
 
     echo "</table>";
     } else {
-        echo "No hay donaciones registrados.";
+        echo "<p>Este usuario non fixo donacións.</p>";
     }
 }
 
