@@ -12,8 +12,8 @@
 <body>
     <h1>Editar usuario </h1>
     <?php
+
         //Obter id de $_GET
-        
         $id_editar = isset($_GET['id']) ? $_GET['id'] : null;
 
         if($id_editar === null) {
@@ -42,20 +42,7 @@
         //Executar UPDATE
 
 
-        if($nome==false || $apelido==false || $idade==false || $provincia==false) {
-            echo "Todos os campos son obrigatorios";
-        } else {
-            $sql = "UPDATE usuarios SET nombre = ?, apellidos = ?, edad = ?, provincia = ? WHERE id = ?";
-            
-            $stmt = $conexion->prepare($sql);
-            $stmt->bind_param("ssisi", $nome, $apelido, $idade, $provincia, $id_editar);
-    
-            if ($stmt->execute()) {
-                echo "Actualizado correctamente";
-            } else {
-                echo "Error actualizando : " . $stmt->error;
-            }
-        }
+        
 
 
     ?>
@@ -73,7 +60,6 @@
     <p>Formulario de edición</p>
     <!-- o "action" chama a editar.php de xeito reflexivo-->
 
-
     <div class="form">
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <p>Nome: <input type="text" name="nome" /></p>
@@ -83,7 +69,13 @@
             <p><input type="submit" /></p>
         </form>
     </div>
-   
+   <?php
+    if($nome==false || $apelido==false || $idade==false || $provincia==false) {
+        echo "Todos os campos son obrigatorios";
+    } else {
+        editar($conexion, $id_editar, $nome, $apelido, $idade, $provincia);
+    }
+   ?>
     
     <footer>
         <p>

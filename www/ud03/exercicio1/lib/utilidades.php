@@ -82,17 +82,25 @@ function editar($conexion, $id_editar, $nome, $apelido, $idade, $provincia) {
     if ($conexion->connect_error) {
         die("Erro de conexión: " . $conexion->connect_error);
     }
-    $sql = "UPDATE usuarios SET nombre = ?, apellidos = ?, edad = ?, provincia = ? WHERE id = ?";
+    
+    $stmt = $conexion->prepare("UPDATE usuarios SET nombre = ?, apellidos = ?, edad = ?, provincia = ? WHERE id = ?");
 
-    $stmt->bind_param("ssis", $nombre, $apellido, $edad, $provincia);
-
-    if ($stmt->execute()) {
-        $stmt->close();
-        return true;
-    } else {
-        $stmt->close();
-        return false;
+    if (!$stmt) {
+        die("Erro na preparación da consulta: " . $conexion->error);
     }
 
+    $stmt->bind_param("ssisi", $nombre, $apellido, $edad, $provincia_es, $id);
+
+    $nombre = $nome;
+    $apellido = $apelido;
+    $edad = $idade;
+    $provincia_es = $provincia;
+    $id = $id_editar;
+
+    if ($stmt->execute()) {
+        echo "Actualizado correctamente";
+    } else {
+        echo "Error actualizando : " . $stmt->error;
+    }
+    $stmt->close();
 }
-?>

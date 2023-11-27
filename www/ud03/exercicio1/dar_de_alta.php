@@ -61,15 +61,18 @@
     <!-- o "action" chama a dar_de_alta.php de xeito reflexivo-->
     <?php
 
+    // Manuel: Inserción "normal" de rexistros:
+        /*
+        $sql = "INSERT INTO usuarios (nombre, apellidos, edad, provincia)
+        VALUES ($nome, $apelido, $idade, $provincia);"
+        */
+
+    // Manuel: Inserción de rexistros con consultas preparadas:
 
         if($nome==false || $apelido==false || $idade==false || $provincia==false) {
             echo "Todos os campos son obrigatorios";
         } else {
-            if (editar($conexion, $nombre, $apellido, $edad, $provincia)) {
-                echo "Editado";
-            } else {
-                echo "Problema ao editar: " . mysqli_error($conexion);
-            }
+            consulta_preparada($conexion, $nome, $apelido, $idade, $provincia);
         }
 
         
