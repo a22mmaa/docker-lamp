@@ -22,11 +22,33 @@
         //Seleccionar bd
         seleccionar_bd_tienda($conexion);
         //Consulta obtención dos usuarios (array)
-        
+        include("lib/utilidades.php");
         //Crear lista de usuarios
         //  - cada usuario mostra dous enlaces (editar e borrar)
         //  - editar.php?id=4
         //  - borrar.php?id=7
+
+        $sql = "SELECT id, nombre, apellidos, edad, provincia FROM usuarios";
+        $resultados = $conexion->query($sql);
+        if($resultados->num_rows > 0){
+            echo "<table>";
+            echo "<tr style='border: 1px solid black'><th>Nome</th><th>Apelidos</th><th>Idade</th><th>Provincia</th></tr>";
+            while($row = $resultados->fetch_assoc()){
+                echo "<tr style='border: 1px solid black'>";
+                echo "<td>".$row["nombre"]."</td>";
+                echo "<td>".$row["apellidos"]."</td>";
+                echo "<td>".$row["edad"]."</td>";
+                echo "<td>".$row["provincia"]."</td>";
+                echo "<td> <a class='btn btn-primary' href=editar.php?id=".$row['id'].">Editar</a> </td>";
+                echo "<td> <a class='btn btn-primary' href=borrar.php?id=".$row['id'].">Borrar</a> </td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "No hay resultados";
+        }
+
+
     ?>
     <footer>
         <p>

@@ -1,5 +1,12 @@
 <?php
 
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+    }
+
 function crear_tabla_usuario($conexion) {
     if ($conexion->connect_error) {
         die("Erro de conexión: " . $conexion->connect_error);
@@ -46,20 +53,46 @@ function consulta_preparada($conexion, $nome, $apelido, $idade, $provincia) {
 }
 
 
-function consultar_usuarios($conexion) {
+function consultar_usuarios($conexion, $id_editar) {
     if ($conexion->connect_error) {
         die("Erro de conexión: " . $conexion->connect_error);
     }
+    $sql = "SELECT nombre, apellidos, edad, provincia FROM usuarios WHERE id=$id_editar";
 
-    $sql = "SELECT nombre, apellidos, edad, provincia FROM usuarios";
     $resultados = $conexion->query($sql);
+
     if($resultados->num_rows > 0){
-          while($row = $resultados->fetch_assoc()){
-              echo $row["nombre"]." - ". $row["apellidos"].$row["edad"].$row["provincia"];
+        echo "<table>";
+        echo "<tr style='border: 1px solid black'><th>Nome</th><th>Apelidos</th><th>Idade</th><th>Provincia</th></tr>";
+        while($row = $resultados->fetch_assoc()){
+            echo "<tr style='border: 1px solid black'>";
+            echo "<td>".$row["nombre"]."</td>";
+            echo "<td>".$row["apellidos"]."</td>";
+            echo "<td>".$row["edad"]."</td>";
+            echo "<td>".$row["provincia"]."</td>";
+            echo "</tr>";
         }
-      } else {
-          echo "No hay resultados";
-      }
+        echo "</table>";
+    }
+
+}
+
+
+function editar($conexion, $id_editar, $nome, $apelido, $idade, $provincia) {
+    if ($conexion->connect_error) {
+        die("Erro de conexión: " . $conexion->connect_error);
+    }
+    $sql = "UPDATE usuarios SET nombre = ?, apellidos = ?, edad = ?, provincia = ? WHERE id = ?";
+
+    $stmt->bind_param("ssis", $nombre, $apellido, $edad, $provincia);
+
+    if ($stmt->execute()) {
+        $stmt->close();
+        return true;
+    } else {
+        $stmt->close();
+        return false;
+    }
 
 }
 ?>
