@@ -37,7 +37,14 @@
             $apelido = test_input($_POST["apelido"]);
             $idade = test_input($_POST["idade"]);
             $provincia = test_input($_POST["provincia"]);
+
+
+            if($nome==false || $apelido==false || $idade==false || $provincia==false) {
+                echo "Todos os campos son obrigatorios";
+            } else {
+                editar($conexion, $id_editar, $nome, $apelido, $idade, $provincia);
             }
+        }
 
         //Executar UPDATE
 
@@ -52,9 +59,9 @@
 
     <p>Datos para editar</p>
     <?php
-    //Consultar datos de ese id
-    include("lib/utilidades.php");
-    consultar_usuarios($conexion, $id_editar);
+        //Consultar datos de ese id
+        include("lib/utilidades.php");
+        consultar_usuarios($conexion, $id_editar);
     ?>
     
     <p>Formulario de edición</p>
@@ -69,13 +76,6 @@
             <p><input type="submit" /></p>
         </form>
     </div>
-   <?php
-    if($nome==false || $apelido==false || $idade==false || $provincia==false) {
-        echo "Todos os campos son obrigatorios";
-    } else {
-        editar($conexion, $id_editar, $nome, $apelido, $idade, $provincia);
-    }
-   ?>
     
     <footer>
         <p>

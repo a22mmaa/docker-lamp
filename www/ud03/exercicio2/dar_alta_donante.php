@@ -17,17 +17,19 @@
     <h1>Alta de donante</h1>
     <div>
         <?php
-        $nombre = $apellido = $edad = $gruposanguineo = $cp = $telefono = "";
+        $nombre = $apellido = $edad = $grupo_sanguineo = $cp = $telefono = "";
 
         
         include("lib/utilidades.php");
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nombre = test_input($_POST["nombre"]);
-        $apellido = test_input($_POST["apellido"]);
-        $edad = test_input($_POST["edad"]);
-        $gruposanguineo = test_input($_POST["gruposanguineo"]);
-        $cp = test_input($_POST["cp"]);
-        $telefono = test_input($_POST["telefono"]);
+            $nombre = test_input($_POST["nombre"]);
+            $apellido = test_input($_POST["apellido"]);
+            $edad = test_input($_POST["edad"]);
+            $grupo_sanguineo = test_input($_POST["grupo_sanguineo"]);
+            $cp = test_input($_POST["cp"]);
+            $telefono = test_input($_POST["telefono"]);
+            
+            novo_donante($nombre, $apellido, $edad, $grupo_sanguineo, $cp, $telefono);
         }
 
         ?>
@@ -37,24 +39,21 @@
             <p>Nome: <input type="text" name="nombre" /></p>
             <p>Apelido: <input type="text" name="apellido" /></p>
             <p>Idade: <input type="number" name="edad" /></p>
-            <select id="gruposanguineo">
-                <option value="ol">O-</option>
-                <option value="op">O+</option>
-                <option value="al">A-</option>
-                <option value="ap">A+</option>
-                <option value="bl">B-</option>
-                <option value="bp">B+</option>
-                <option value="abl">AB-</option>
-                <option value="abp">AB+</option>
-            </select>
+            <p>Grupo sanguíneo: <select name="grupo_sanguineo">
+                <option value="O-">O-</option>
+                <option value="O+">O+</option>
+                <option value="A-">A-</option>
+                <option value="A+">A+</option>
+                <option value="B-">B-</option>
+                <option value="B+">B+</option>
+                <option value="AB-">AB-</option>
+                <option value="AB+">AB+</option>
+            </select></p>
             <p>Código postal: <input type="number" name="cp" /></p>
             <p>Teléfono: <input type="number" name="telefono" /></p>
             <p><input type="submit" /></p>
         </form>
     </div>
-    <?php
-
-    ?>
 
     <footer>
         <p><a href='index.php'>Página de inicio</a></p>

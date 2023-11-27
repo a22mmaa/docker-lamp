@@ -25,10 +25,10 @@
         
         include("lib/utilidades.php");
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nome = test_input($_POST["nome"]);
-        $apelido = test_input($_POST["apelido"]);
-        $idade = test_input($_POST["idade"]);
-        $provincia = test_input($_POST["provincia"]);
+            $nome = test_input($_POST["nome"]);
+            $apelido = test_input($_POST["apelido"]);
+            $idade = test_input($_POST["idade"]);
+            $provincia = test_input($_POST["provincia"]);
         }
 
 
