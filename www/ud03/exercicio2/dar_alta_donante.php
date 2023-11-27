@@ -36,6 +36,7 @@
 
         Formulario para dar de alta un donante
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
             <p>Nome: <input type="text" name="nombre" /></p>
             <p>Apelido: <input type="text" name="apellido" /></p>
             <p>Idade: <input type="number" name="edad" /></p>

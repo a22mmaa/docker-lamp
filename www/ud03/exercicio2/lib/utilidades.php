@@ -1,16 +1,14 @@
 <?php
 include("lib/base_datos.php");
 
-function test_input($data)
-{
+function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }
 
-function novo_donante($nombre, $apellido, $edad, $grupo_sanguineo, $cp, $telefono)
-{
+function novo_donante($nombre, $apellido, $edad, $grupo_sanguineo, $cp, $telefono) {
 
     try {
         $conPDO = conexion_bbdd();
