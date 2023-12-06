@@ -153,7 +153,7 @@ function calcular_proxima_donacion($fecha_donacion)
     return $data_futura;
 }
 
-function donar($id, $donante, $fecha_donacion, $fecha_proxima_donacion)
+function donar($donante, $fecha_donacion, $fecha_proxima_donacion)
 {
     try {
         $conPDO = conexion_bbdd();
@@ -171,3 +171,37 @@ function donar($id, $donante, $fecha_donacion, $fecha_proxima_donacion)
     }
 }
 
+function procurar_cp($codigo_postal) {
+    $conPDO = conexion_bbdd();
+    $conPDO->exec("USE donacion");
+
+    $stmt = $conPDO->prepare("SELECT id, nombre, apellidos, edad, grupo_sanguineo FROM donantes WHERE codigo_postal = :codigo_postal");
+    $stmt->bindParam(':codigo_postal', $codigo_postal);
+    $stmt->execute();
+
+    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($resultados) > 0) {
+        echo "<h2>Datos donante:</h2>";
+        echo "<table border='1'>";
+        echo "<tr>";
+        echo "<th>Nombre</th>";
+        echo "<th>Apellidos</th>";
+        echo "<th>Edad</th>";
+        echo "<th>Grupo Sanguíneo</th>";
+        echo "</tr>";
+
+        foreach ($resultados as $row) {
+            echo "<tr>";
+            echo "<td>" . $row['nombre'] . "</td>";
+            echo "<td>" . $row['apellidos'] . "</td>";
+            echo "<td>" . $row['edad'] . "</td>";
+            echo "<td>" . $row['grupo_sanguineo'] . "</td>";
+            echo "</tr>";
+        }
+
+        echo "</table>";
+    } else {
+        echo "Non se encontraron donantes con este identificador.";
+    }
+}

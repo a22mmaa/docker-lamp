@@ -16,18 +16,20 @@
     // QUEDEI AQUI!
 
 
-    $id = $donante = $fecha_donacion = $fecha_proxima_donacion = "";
-    $id_donante = $_GET["id"];
+    $id = $id_donante = $fecha_donacion = $fecha_proxima_donacion = "";
+    //$id_donante = $_GET["id"];
 
         
     include("lib/utilidades.php");
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $id = test_input($_POST["id"]);
-        $donante = test_input($_POST["donante"]);
+        $id_donante = test_input($_POST["id_donante"]);
         $fecha_donacion = test_input($_POST["fecha_donacion"]);
         $fecha_proxima_donacion = test_input($_POST["fecha_proxima_donacion"]);
 
-        donar($id, $donante, $fecha_donacion, $fecha_proxima_donacion);
+        donar($id_donante, $fecha_donacion, $fecha_proxima_donacion);
+
+    } elseif (isset($_GET['id'])) {
+        $id_donante = $_GET["id"];
     }
 
     ?>
@@ -36,8 +38,7 @@
     <div>
         Formulario para dar de alta una donación
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <input type="hidden" name="id" value="<?php echo $id; ?>">
-            <input type="hidden" name="donante" value="<?php echo $id_donante; ?>">
+            <input type="hidden" name="id_donante" value="<?php echo $id_donante;?>">
             <p>Data donación: <input type="date" name="fecha_donacion" /></p>
             <input type="hidden" name="fecha_proxima_donacion" value="<?php echo calcular_proxima_donacion($fecha_donacion); ?>">
             <p><input type="submit" /></p>
