@@ -19,10 +19,15 @@
 
     // Manuel: Definimos variábeis e verificamos 
 
+    include("lib/base_datos.php");
+    $conexion = get_conexion();
+    seleccionar_bd_tienda($conexion);
+
     $nome = $apelido = $idade = $provincia = "";
 
 
     include("lib/utilidades.php");
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nome = test_input($_POST["nome"]);
         $apelido = test_input($_POST["apelido"]);
@@ -33,9 +38,7 @@
 
     // Manuel: Conexión coa BBDD e selección 
 
-    include("lib/base_datos.php");
-    $conexion = get_conexion();
-    seleccionar_bd_tienda($conexion);
+    
 
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
@@ -66,7 +69,7 @@
     if ($nome == false || $apelido == false || $idade == false || $provincia == false) {
         echo "Todos os campos son obrigatorios";
     } else {
-        consulta_preparada($conexion, $nome, $apelido, $idade, $provincia);
+        dar_de_alta($conexion, $nome, $apelido, $idade, $provincia);
     }
 
 
