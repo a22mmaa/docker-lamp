@@ -97,8 +97,6 @@ function alta_donante($nome, $apelidos, $idade, $sangue, $cp, $tlfn) {
 
         $stmt->execute();
 
-        $stmt->execute();
-
     } catch(PDOException $e){
         echo "Fallo inserindo datos de donante: ". $e->getMessage();
     }
@@ -106,25 +104,25 @@ function alta_donante($nome, $apelidos, $idade, $sangue, $cp, $tlfn) {
 }
 
 
-function donar($nome, $apelidos, $idade, $sangue, $cp, $tlfn) {
+function donar($data, $id_donante) {
     $conPDO = estabelecer_conexion();
     $conPDO->exec("USE donacion231210");
-    try {
-        $stmt = $conPDO->prepare("INSERT INTO donantes (nombre, apellido, idade, gruposanguineo, codigopostal, telefono)
-        VALUES (:nombre, :apellido, :idade, :gruposanguineo, :codigopostal, :telefono)");
-        $stmt->bindParam(':nombre', $nome);
-        $stmt->bindParam(':apellido', $apelidos);
-        $stmt->bindParam(':idade', $idade);
-        $stmt->bindParam(':gruposanguineo', $sangue);
-        $stmt->bindParam(':codigopostal', $cp);
-        $stmt->bindParam(':telefono', $tlfn);
 
-        $stmt->execute();
+    $fecha_donacion_proxima = date("Y-m-d", strtotime($data . "+4 month"));
+
+    try {
+
+
+        $stmt = $conPDO->prepare("INSERT INTO historico (donante, fecha_donacion, fecha_donacion_proxima)
+        VALUES (:donante, :fecha_donacion, :fecha_donacion_proxima)");
+        $stmt->bindParam(':donante', $id_donante);
+        $stmt->bindParam(':fecha_donacion', $data);
+        $stmt->bindParam(':fecha_donacion_proxima', $fecha_donacion_proxima);
 
         $stmt->execute();
 
     } catch(PDOException $e){
-        echo "Fallo inserindo datos de donante: ". $e->getMessage();
+        echo "Fallo inserindo datos de donacion: ". $e->getMessage();
     }
     $conPDO = null;
 }

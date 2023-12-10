@@ -1,3 +1,39 @@
+<?php
+    include("lib/utilidades.php");
+    include("lib/base_datos.php");
+
+    $conPDO = estabelecer_conexion();
+    $conPDO->exec("USE donacion231210");
+
+    $mensaxes = array();
+
+    $data = "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        if (!empty($_POST['data'])) {
+            $data = test_input($_POST['data']);
+        } else {
+            $mensaxes[] = array("erro", "Introduce unha data");
+        }
+
+        if (!empty($_POST['id_donante'])) {
+            $id_donante = test_input($_POST['id_donante']);
+        } else {
+            $mensaxes[] = array("erro", "Erro en id donante");
+        }
+    
+        if (count($mensaxes) ==  0) {
+            donar($data, $id_donante);
+            $mensaxes[] = array("success", "Donación realizada");
+        }
+    } elseif (isset($_GET['id'])) {
+        $id_donante = $_GET["id"];
+    }
+    ?>
+
+
+
 <!doctype html>
 <html lang="en">
 
@@ -19,14 +55,10 @@
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
     <input type="hidden" name="id_donante" value="<?php echo $id_donante;?>">
-    <!-- Campo de Texto -->
 
     <label for="data">Data donacion:</label>
-    <input type="text" id="data" name="data" required>
+    <input type="date" id="data" name="data" required>
 
-    
-
-    <!-- Campo de Botón de Envío -->
     <button type="submit">Enviar</button>
 </form>
 
