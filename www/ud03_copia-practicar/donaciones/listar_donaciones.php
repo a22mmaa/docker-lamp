@@ -16,7 +16,7 @@
     <br>
     <h1>Gestión donacion de Sangre</h1>
     <div>
-        Listado de donaciones
+    <?php consultar_donantes(); ?>
     </div>
 
     <footer>

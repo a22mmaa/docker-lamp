@@ -1,3 +1,10 @@
+<?php
+    include("lib/utilidades.php");
+    include("lib/base_datos.php");
+
+    $conPDO = estabelecer_conexion();
+    $conPDO->exec("USE donacion231210");
+?>
 <!doctype html>
 <html lang="en">
 
@@ -16,7 +23,7 @@
     <br>
     <h1>Gestión donacion de Sangre</h1>
     <div>
-        Listado de donantes
+        <?php consultar_donantes(); ?>
     </div>
 
     <footer>

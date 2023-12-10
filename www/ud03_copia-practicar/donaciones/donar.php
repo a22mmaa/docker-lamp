@@ -16,7 +16,20 @@
     <br>
     <h1>Alta de donación</h1>
     <div>
-        Formulario para dar de alta una donación
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+
+    <input type="hidden" name="id_donante" value="<?php echo $id_donante;?>">
+    <!-- Campo de Texto -->
+
+    <label for="data">Data donacion:</label>
+    <input type="text" id="data" name="data" required>
+
+    
+
+    <!-- Campo de Botón de Envío -->
+    <button type="submit">Enviar</button>
+</form>
+
     </div>
 
     <footer>
