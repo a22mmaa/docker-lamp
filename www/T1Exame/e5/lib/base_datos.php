@@ -177,3 +177,7 @@ function cerrar_conexion($conexion)
 {
     $conexion = null;
 }
+
+function consultar_informes() {
+    
+}
