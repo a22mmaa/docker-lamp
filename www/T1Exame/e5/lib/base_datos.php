@@ -131,6 +131,16 @@ function eliminar_donante($conexion, $idDonante)
     $consulta = $conexion->prepare("DELETE d FROM donantes d LEFT JOIN historico h ON d.id = h.idDonante where d.id =$idDonante");
     return $consulta->execute();
 }
+
+function eliminar_admin($conexion, $nombreAdmin)
+{
+    $consulta = $conexion->prepare("DELETE FROM administradores WHERE nombre=:nombre_borrar");
+    $consulta->bindParam(':nombre_borrar', $nombreAdmin);
+    return $consulta->execute();
+    
+}
+
+
 function get_donaciones($conexion, $idDonante)
 {
     $consulta = $conexion->prepare("SELECT donantes.nombre, donantes.apellidos, historico.fechaDonacion, historico.proximaDonacion
