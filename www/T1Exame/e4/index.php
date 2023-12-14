@@ -1,6 +1,6 @@
 <?php
-
-  require "lib/base_datos.php";
+    //MMA: meto (), por sintaxe
+    require("lib/base_datos.php");
 
 ?>
 <!doctype html>

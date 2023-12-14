@@ -7,11 +7,15 @@ function get_conexion()
     if ($conexion->connect_errno != null) {
         die("Fallo en la conexión: " . $conexion->connect_error . "Con numero" . $conexion->connect_errno);
     }
+
+    //MMA: falta o return
+    return $conexion;
 }
 
 function seleccionar_bd_tienda($conexion)
 {
-    return $conexion->select_db("tinda");
+    //MMA: gralla, é tienda
+    return $conexion->select_db("tienda");
 }
 
 function ejecutar_consulta($conexion, $sql)
@@ -33,7 +37,6 @@ function crear_bd_tienda($conexion)
 
 function crear_tabla_usuarios($conexion)
 {
-
     $sql = "CREATE TABLE IF NOT EXISTS usuarios(
           id INT(6) AUTO_INCREMENT PRIMARY KEY , 
           nombre VARCHAR(50) NOT NULL , 

@@ -23,6 +23,9 @@ include "lib/utilidades.php";
 
 <?php
 
+//MMA: falta crear a variabel conexion
+
+$conexion = get_conexion();
 $seleccion_bd = seleccionar_bd_tienda($conexion);
 
 $id = $_GET["id"];
