@@ -1,8 +1,9 @@
 <?php
-    //MMA: erro de sintaxe (ou pode ser que borrase eu algo sen querer, pero creo que había un erro)
-    require("lib/base_datos.php");
 
+include "lib/base_datos.php";
+include "lib/utilidades.php";
 ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -15,22 +16,43 @@
 </head>
 
 <body>
-    <h1>Tienda IES San Clemente</h1>
+    <h1>Lista de administradores</h1>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
             crossorigin="anonymous">
     </script>
-    <?php
-        $conexion = get_conexion();
-        crear_bd_tienda($conexion);
-        seleccionar_bd_tienda($conexion);
-        crear_tabla_usuarios($conexion);
-        cerrar_conexion($conexion);
-    ?>
-    <p>
-        <a class="btn btn-primary" href="dar_de_alta.php" role="button"> Alta usuarios</a>
-        <a class="btn btn-primary" href="listar.php" role="button"> Listar usuarios</a>
-    </p>
+
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Contraseña</th>
+      </tr>
+
+    </thead>
+    <tbody>
+
+<?php
+$conexion = get_conexion();
+seleccionar_bd_tienda($conexion);
+
+$resultados = listar_admins($conexion);
+
+if (!is_bool($resultados) && $resultados->num_rows > 0) {
+    //MMA: é fetch_assoc, faltaba un s
+    while ($row = $resultados->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . $row['nombre'] . "</td> ";
+        echo "<td>" . $row['contrasinal'] . "</td> ";
+        echo "</tr> ";
+    }
+}
+
+cerrar_conexion($conexion);
+
+?>
+    </tbody>
     <footer>
         <p>
             <a href='index.php'>Página de inicio</a>

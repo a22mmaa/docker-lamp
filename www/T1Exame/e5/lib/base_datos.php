@@ -155,6 +155,14 @@ function get_ultima_donacion($conexion, $idDonante)
     return $proxima_donacion;
 }
 
+
+function listar_admins($conexion)
+{
+    $consulta = $conexion->prepare("SELECT * FROM administradores");
+    $consulta->execute();
+    return $consulta;
+}
+
 function cerrar_conexion($conexion)
 {
     $conexion = null;
