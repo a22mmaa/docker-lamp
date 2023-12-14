@@ -2,14 +2,12 @@
 
 include "lib/base_datos.php";
 include "lib/utilidades.php";
+include "lib/donaciones.php";
 
 $conexion = get_conexion();
-
-crear_bd_donacion($conexion);
 seleccionar_bd_donacion($conexion);
-crear_tabla_administradores($conexion);
-crear_tabla_donantes($conexion);
-crear_tabla_historico($conexion);
+
+cerrar_conexion($conexion);
 
 ?>
 
@@ -29,15 +27,25 @@ crear_tabla_historico($conexion);
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
     <br>
-    <h1>Gestión donacion de Sangre</h1>
-    <div>
-        <a class="btn btn-primary" href="dar_alta_donante.php" role="button">Alta donantes</a>
-        <a class="btn btn-primary" href="buscar_donantes.php" role="button">Buscar donantes</a>
-        <a class="btn btn-primary" href="listar_donantes.php" role="button">Listar donantes</a>
-        <a class="btn btn-primary" href="dar_alta_administrador.php" role="button">Nuevos administradores</a>
-        <a class="btn btn-primary" href="listar_administradores.php" role="button">Listar administradores</a>
-        <a class="btn btn-primary" href="informe_donaciones_entre_fechas.php" role="button">Donaciones entre fechas</a>
-    </div>
+    <h1>Donaciones entre fechas</h1>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+
+    <p>
+        <label for="data1">Data de inicio:</label>
+        <input type="date" id="data1" name="data1" required>
+    </p>
+
+    <p>
+        <label for="data2">Data de fin:</label>
+        <input type="date" id="data2" name="data2" min="0" required>
+    </p>
+
+    <p>
+        <button type="submit">Enviar</button>
+    </p>
+</form>
+
+
 
     <footer>
         <p><a href='index.php'>Página de inicio</a></p>
