@@ -96,3 +96,24 @@ function cerrar_conexion($conexion)
 {
     $conexion->close();
 }
+
+function crear_tabla_productos($conexion)
+{
+
+    $sql = "CREATE TABLE IF NOT EXISTS productos(
+          id INT(6) AUTO_INCREMENT PRIMARY KEY , 
+          nombre VARCHAR(50) NOT NULL , 
+          descripcion VARCHAR(100) ,
+          precio FLOAT ,
+          unidades FLOAT ,
+          foto BLOB NOT NULL)";
+
+    ejecutar_consulta($conexion, $sql);
+}
+
+function crear_producto($conexion, $nombre, $descripcion, $precio, $unidades, $fileToUpload)
+{
+    $sql = $conexion->prepare("INSERT INTO productos (nombre,descripcion,precio,unidades,foto) VALUES (?,?,?,?,?)");
+    $sql->bind_param("ssddb", $nombre, $descripcion, $precio, $unidades, $fileToUpload);
+    return $sql->execute() or die($conexion->error);
+}
