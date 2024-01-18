@@ -39,6 +39,7 @@ function crear_tabla_usuarios($conexion)
     $sql = "CREATE TABLE IF NOT EXISTS usuarios(
           id INT(6) AUTO_INCREMENT PRIMARY KEY , 
           nombre VARCHAR(50) NOT NULL , 
+          password VARCHAR(50) NOT NULL ,
           apellidos VARCHAR(100) NOT NULL ,
           edad INT (3) NOT NULL ,
           provincia VARCHAR(50) NOT NULL)";
@@ -48,7 +49,7 @@ function crear_tabla_usuarios($conexion)
 
 function listar_usuarios($conexion)
 {
-    $sql = "SELECT id, nombre, apellidos,edad, provincia
+    $sql = "SELECT id, nombre, password, apellidos,edad, provincia
             FROM usuarios";
 
     $resultado = ejecutar_consulta($conexion, $sql);
@@ -57,7 +58,7 @@ function listar_usuarios($conexion)
  
 function get_usuario($conexion, $id)
 {
-    $sql = "SELECT id, nombre, apellidos,edad, provincia
+    $sql = "SELECT id, nombre, password, apellidos,edad, provincia
             FROM usuarios
             WHERE id=$id";
 
@@ -65,10 +66,10 @@ function get_usuario($conexion, $id)
     return $resultado;
 }
 
-function editar_usuario($conexion, $id, $nombre, $apellidos, $edad, $provincia)
+function editar_usuario($conexion, $id, $nombre, $password, $apellidos, $edad, $provincia)
 {
     $sql = "UPDATE usuarios
-            SET nombre='$nombre' ,apellidos='$apellidos' ,edad='$edad',provincia='$provincia'
+            SET nombre='$nombre' , password='$password', apellidos='$apellidos' ,edad='$edad',provincia='$provincia'
             WHERE id=$id;";
 
     $resultado = ejecutar_consulta($conexion, $sql);
@@ -76,10 +77,10 @@ function editar_usuario($conexion, $id, $nombre, $apellidos, $edad, $provincia)
 }
 
 
-function dar_alta_usuario($conexion, $nombre, $apellidos, $edad, $provincia)
+function dar_alta_usuario($conexion, $nombre, $password, $apellidos, $edad, $provincia)
 {
-    $sql = $conexion->prepare("INSERT INTO usuarios (nombre,apellidos,edad,provincia) VALUES (?,?,?,?)");
-    $sql->bind_param("ssss", $nombre, $apellidos, $edad, $provincia);
+    $sql = $conexion->prepare("INSERT INTO usuarios (nombre,password,apellidos,edad,provincia) VALUES (?,?,?,?,?)");
+    $sql->bind_param("ssss", $nombre, $password, $apellidos, $edad, $provincia);
     return $sql->execute() or die($conexion->error);
 }
 
