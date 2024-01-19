@@ -28,13 +28,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     } else {
         $nombre = test_input($_POST["name"]);
         $password = test_input($_POST["password"]);
+        $hasheado = password_hash($password, PASSWORD_DEFAULT);
         $apellidos = test_input($_POST["apellidos"]);
         $edad = test_input($_POST["edad"]);
         $provincia = test_input($_POST["provincia"]);
 
         $conexion = get_conexion();
         seleccionar_bd_tienda($conexion);
-        dar_alta_usuario($conexion, $nombre, $password, $apellidos, $edad, $provincia);
+        dar_alta_usuario($conexion, $nombre, $hasheado, $apellidos, $edad, $provincia);
         $mensajes = "Usuario dado de alta correctamente";
         cerrar_conexion($conexion);
     }

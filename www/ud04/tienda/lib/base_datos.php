@@ -35,11 +35,16 @@ function crear_bd_tienda($conexion)
 
 function crear_tabla_usuarios($conexion)
 {
+    /*
+    Incumprimos a norma de que password sexa VARCHAR(50).
+    Tentei facelo así, usando substring para cortar os contrasinais hasheados,
+    mais iso impedía usar password_verify e reducía a seguridade.
+    */
 
     $sql = "CREATE TABLE IF NOT EXISTS usuarios(
           id INT(6) AUTO_INCREMENT PRIMARY KEY , 
           nombre VARCHAR(50) NOT NULL , 
-          password VARCHAR(50) NOT NULL ,
+          password VARCHAR(255) NOT NULL ,
           apellidos VARCHAR(100) NOT NULL ,
           edad INT (3) NOT NULL ,
           provincia VARCHAR(50) NOT NULL)";
