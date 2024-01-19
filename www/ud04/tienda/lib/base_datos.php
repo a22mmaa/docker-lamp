@@ -79,8 +79,8 @@ function editar_usuario($conexion, $id, $nombre, $password, $apellidos, $edad, $
 
 function dar_alta_usuario($conexion, $nombre, $password, $apellidos, $edad, $provincia)
 {
-    $sql = $conexion->prepare("INSERT INTO usuarios (nombre,password,apellidos,edad,provincia) VALUES (?,?,?,?,?)");
-    $sql->bind_param("ssss", $nombre, $password, $apellidos, $edad, $provincia);
+    $sql = $conexion->prepare("INSERT INTO usuarios (nombre, password, apellidos,edad,provincia) VALUES (?,?,?,?,?)");
+    $sql->bind_param("sssss", $nombre, $password, $apellidos, $edad, $provincia);
     return $sql->execute() or die($conexion->error);
 }
 
