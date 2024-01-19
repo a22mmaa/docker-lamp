@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
       Nombre: <input type="text" name="name">
       <br><br>
-      Pass: <input type="text" name="password">
+      Pass: <input type="password" name="password">
       <br><br>
       Apellidos: <input type="text" name="apellidos">
       <br><br>
