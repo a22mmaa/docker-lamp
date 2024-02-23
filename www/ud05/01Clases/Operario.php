@@ -4,6 +4,21 @@ class Operario extends Empleado {
     private $turno;
 
     // Construtor
+
+    function __construct($nombre, $salario, $turno) {
+        parent::__construct($nombre, $salario);
+
+        $this->turno = $turno;
+
+        self::$numEmpleados++;
+    }
+
+    /*
+    Esta foi a primeira versión do constructor.
+    Funcionaba ben, pero en VSC saltaba o erro:
+    "Undefined property '$nombre'." e o mesmo con
+    salario.
+
     function __construct($nombre, $salario, $turno) {
         $this->nombre = $nombre;
         if ($salario <= 2000) {
@@ -15,6 +30,7 @@ class Operario extends Empleado {
 
         self::$numEmpleados++;
     }
+    */
 
     function setTurno($turno) {
 
