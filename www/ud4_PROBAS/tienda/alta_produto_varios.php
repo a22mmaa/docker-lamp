@@ -16,7 +16,8 @@
 </head>
 
 <body>
-    <h1>Alta de produto </h1>
+    <!-- DIFER€NZA -->
+    <h1>Alta de varios arquivos</h1>
 
 <?php
 
@@ -55,37 +56,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
             $mensajes[] = array("error", "unidades mal");
         }
 
-        // Ollo! $_FILES, NON POST
-        if (!empty($_FILES['archivo']['name'])) {
-            $archivo = $_FILES['archivo'];
-            $archivo_tmp = test_input($_FILES['archivo']['tmp_name']);
+        // DIFER€NZA
+        if (!empty($_FILES['archivos'])) {
+            $archivos = $_FILES['archivos'];
         } else {
-            $mensajes[] = array("error", "arquivo mal");
-        }  
-
-        if(empty($mensajes)) {
-            // Validamos o arquivo
-            $archivo_validado =  validar_archivo($archivo);
-
-            //Si se validó...
-            if($archivo_validado) {
-
-                // Probamos a subir
-                if (subir_archivo($archivo)) {
-
-                    // Registramos en la BD
-                    $mensajes[] = subir_fichero_producto_bbdd($nombreProducto, $descripcion, $unidades, $precio, $archivo['name'], "uploads/");
-            } else {
-                $mensajes[] = array("error", "Error al guardar el archivo");
-            }
-
-                
-            }
+            $mensajes[] = array("error", "Adjunta un archivo");
         }
 
-
-
-    
+        // DIFER€NZAS
+        if (empty($mensajes)) {
+            for ($i = 0; $i < count($archivos['name']); $i++) {
+                $archivo_validado = validar_archivo_multiple($archivos, $i);
+                if ($archivo_validado) {
+                    if (subir_archivo_multiple($archivos, $i)) {
+                        if ($i == 0) {
+                            $mensajes[] = subir_fichero_producto_bbdd($nombreProducto, $descripcion, $unidades, $precio, $archivos['name'][0], "uploads/");
+                        }
+                    } else {
+                        $mensajes[] = array("error", "Error al guardar el archivo $i");
+                    }
+                } else {
+                    $mensajes = array_merge($mensajes, $validar_fichero);
+                }
+            }
+        }
 }
 ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
@@ -109,7 +103,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         <input type="text" name="unidades" value="<?= $unidades;?>">
         <br><br>
         <label for="archivo">Subir foto: </label>
-        <input type="file" name="archivo" id="archivo">
+        <!-- DIFER€NZA: Array de arquivos -->
+        <input type="file" name="archivos[]" id="archivo" multiple>
         <br><br>
         <input type="submit" name="submit" value="Enviar"> 
       </form>

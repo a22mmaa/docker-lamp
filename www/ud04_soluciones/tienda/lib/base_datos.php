@@ -53,7 +53,7 @@ function crear_tabla_productos($conexion)
     $sql = "CREATE TABLE IF NOT EXISTS productos (
       id INT(6) AUTO_INCREMENT PRIMARY KEY,
       nombre VARCHAR(50) NOT NULL,
-      descipcion VARCHAR(100) NOT NULL,
+      descripcion VARCHAR(100) NOT NULL,
       precio FLOAT(8) NOT NULL,
       unidades FLOAT(8) NOT NULL,
       foto LONGBLOB 
@@ -102,7 +102,7 @@ function dar_alta_usuario($conexion, $nombre, $apellidos, $password, $edad, $pro
 
 function dar_alta_producto($conexion, $nombre, $descripcion, $precio, $unidades, $foto)
 {
-    $sql = $conexion->prepare("INSERT INTO productos (nombre,descipcion,precio,unidades, foto) VALUES (?,?,?,?,?)") or die($conexion->error);
+    $sql = $conexion->prepare("INSERT INTO productos (nombre,descripcion,precio,unidades, foto) VALUES (?,?,?,?,?)") or die($conexion->error);
     $sql->bind_param("ssiis", $nombre, $descripcion, $precio, $unidades, $foto) or die($conexion->error);
     return $sql->execute() or die($conexion->error);
 }

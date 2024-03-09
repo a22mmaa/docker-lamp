@@ -3,11 +3,11 @@
 function get_conexion()
 {
     $conexion = new mysqli('db', 'root', 'test');
-  
+
     if ($conexion->connect_errno != null) {
         die("Fallo en la conexión: " . $conexion->connect_error . "Con numero" . $conexion->connect_errno);
     }
-    
+
     return $conexion;
 }
 
@@ -33,12 +33,14 @@ function crear_bd_tienda($conexion)
     ejecutar_consulta($conexion, $sql);
 }
 
+// DIFER€NZA
 function crear_tabla_usuarios($conexion)
 {
 
     $sql = "CREATE TABLE IF NOT EXISTS usuarios(
           id INT(6) AUTO_INCREMENT PRIMARY KEY , 
           nombre VARCHAR(50) NOT NULL , 
+          password VARCHAR(100) NOT NULL , 
           apellidos VARCHAR(100) NOT NULL ,
           edad INT (3) NOT NULL ,
           provincia VARCHAR(50) NOT NULL)";
@@ -55,7 +57,7 @@ function listar_usuarios($conexion)
     $resultado = ejecutar_consulta($conexion, $sql);
     return $resultado;
 }
- 
+
 function get_usuario($conexion, $id)
 {
     $sql = "SELECT id, nombre, apellidos,edad, provincia
@@ -76,11 +78,13 @@ function editar_usuario($conexion, $id, $nombre, $apellidos, $edad, $provincia)
     return $resultado;
 }
 
-
-function dar_alta_usuario($conexion, $nombre, $apellidos, $edad, $provincia)
+// DIFER€NZAS
+function dar_alta_usuario($conexion, $nombre, $apellidos, $password, $edad, $provincia)
 {
-    $sql = $conexion->prepare("INSERT INTO usuarios (nombre,apellidos,edad,provincia) VALUES (?,?,?,?)");
-    $sql->bind_param("ssss", $nombre, $apellidos, $edad, $provincia);
+    $hasheado = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = $conexion->prepare("INSERT INTO usuarios (nombre,apellidos,password,edad,provincia) VALUES (?,?,?,?,?)");
+    $sql->bind_param("sssss", $nombre, $apellidos, $hasheado, $edad, $provincia);
     return $sql->execute() or die($conexion->error);
 }
 
@@ -100,7 +104,7 @@ function cerrar_conexion($conexion)
 
 
 
-// NOVEDADES
+// NOVIDAD€S
 
 
 function crear_tabla_productos($conexion)
@@ -109,13 +113,22 @@ function crear_tabla_productos($conexion)
     $sql = "CREATE TABLE IF NOT EXISTS productos (
       id INT(6) AUTO_INCREMENT PRIMARY KEY,
       nombre VARCHAR(50) NOT NULL,
-      descipcion VARCHAR(100) NOT NULL,
+      descripcion VARCHAR(100) NOT NULL,
       precio FLOAT(8) NOT NULL,
       unidades FLOAT(8) NOT NULL,
       foto LONGBLOB 
     )";
 
     ejecutar_consulta($conexion, $sql);
+}
+
+
+
+function dar_alta_producto($conexion, $nombre, $descripcion, $precio, $unidades, $foto)
+{
+    $sql = $conexion->prepare("INSERT INTO productos (nombre,descripcion,precio,unidades, foto) VALUES (?,?,?,?,?)") or die($conexion->error);
+    $sql->bind_param("ssiis", $nombre, $descripcion, $precio, $unidades, $foto) or die($conexion->error);
+    return $sql->execute() or die($conexion->error);
 }
 
 function subir_fichero_producto_bbdd($nombre, $descripcion, $unidades, $precio, $nombre_archivo, $targetDir = "uploads/")

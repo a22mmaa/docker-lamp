@@ -25,12 +25,17 @@
         crear_bd_tienda($conexion);
         seleccionar_bd_tienda($conexion);
         crear_tabla_usuarios($conexion);
+        crear_tabla_productos($conexion);
         cerrar_conexion($conexion);
     ?>
     <p>
         <a class="btn btn-primary" href="dar_de_alta.php" role="button"> Alta usuarios</a>
         <a class="btn btn-primary" href="alta_produto.php" role="button"> Alta 1 produto</a>
+        <a class="btn btn-primary" href="alta_produto_varios.php" role="button"> Alta varios produtos</a>
+        <a class="btn btn-primary" href="alta_produto_varios_carpetas.php" role="button"> Alta varios produtos por carpeta</a>
         <a class="btn btn-primary" href="listar.php" role="button"> Listar usuarios</a>
+        <a class="btn btn-primary" href="login.php" role="button">Login</a>
+        <a class="btn btn-primary" href="logout.php" role="button">Logout</a>
     </p>
     <footer>
         <p>
