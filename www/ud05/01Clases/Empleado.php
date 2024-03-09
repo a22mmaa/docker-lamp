@@ -3,8 +3,8 @@
 class Empleado {
 
     //PROPIEDADES
-    public $nombre;
-    public $salario;
+    private $nombre;
+    private $salario;
     public static $numEmpleados = 0;
 
     // Construtor
