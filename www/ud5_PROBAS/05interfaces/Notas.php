@@ -7,7 +7,7 @@ abstract class Notas {
         $this->notas = $notas;
     }
 
-    public function getNotas() {
+    public function get_notas() {
         return $this->notas;
     }
     abstract public function toString();
