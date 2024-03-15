@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Nota</title>
 </head>
+
 <body>
     <h2>Crear Nota</h2>
     <form action="guardar_nota.php" method="post">
@@ -18,9 +20,24 @@
     <h2>Notas Guardadas</h2>
     <ul>
         <?php
-        
+
+
         // Mostrar las notas guardadas en forma de lista
+        
+        $cartafol = "./notas";
+        $arquivos = scandir($cartafol);
+        if ($arquivos) {
+            foreach ($arquivos as $arquivo) {
+                $rutaArquivo = $cartafol . '/' . $arquivo;
+                if (is_file($rutaArquivo)) {
+                    echo "<li>" . $arquivo . "</li>";
+                }
+            }
+
+        }
+
         ?>
     </ul>
 </body>
+
 </html>
