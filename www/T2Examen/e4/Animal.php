@@ -2,28 +2,25 @@
 
 require_once 'Mascota.php';
 
-class Animal implements Mascota {
+abstract class Animal implements Mascota
+{
     protected $nombre;
     protected $edad;
 
-    public function __construct($nombre, $edad) {
+    public function __construct($nombre, $edad)
+    {
         $this->nombre = $nombre;
         $this->edad = $edad;
     }
 
-    /**
-     * Get the value of nombre
-     */ 
-    public function getNombre()
+    abstract public function emitirSonido();
+
+    public function obtenernombre()
     {
         return $this->nombre;
     }
 
-    /**
-     * Set the value of nombre
-     *
-     * @return  self
-     */ 
+
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
@@ -31,19 +28,13 @@ class Animal implements Mascota {
         return $this;
     }
 
-    /**
-     * Get the value of edad
-     */ 
+
     public function getEdad()
     {
         return $this->edad;
     }
 
-    /**
-     * Set the value of edad
-     *
-     * @return  self
-     */ 
+
     public function setEdad($edad)
     {
         $this->edad = $edad;

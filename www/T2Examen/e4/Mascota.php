@@ -1,6 +1,7 @@
 <?php
 
-interface Mascota {
+interface Mascota
+{
     public function obtenernombre();
     public function emitirSonido();
 }
