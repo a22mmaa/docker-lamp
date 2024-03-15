@@ -7,6 +7,11 @@ class Rectangulo extends Figura
     private $ancho;
     private $alto;
 
+function __construct($ancho, $alto) {
+        $this->ancho = $ancho;
+        $this->alto = $alto;
+    }
+
 
     public  function getAncho() {
         return $this->ancho;

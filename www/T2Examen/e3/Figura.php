@@ -5,10 +5,7 @@ abstract class Figura
     private $ancho;
     private $alto;
 
-    public function __construct($ancho, $alto) {
-        $this->ancho = $ancho;
-        $this->alto = $alto;
-    }
+    abstract public function __construct($ancho, $alto);
 
     // Método abstracto para dibujar la figura
     abstract public function dibujar();
