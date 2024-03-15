@@ -14,8 +14,9 @@ abstract class Animal implements Mascota
     }
 
     abstract public function emitirSonido();
+    abstract public function obtenernombre();
 
-    public function obtenernombre()
+    public function getNombre()
     {
         return $this->nombre;
     }
