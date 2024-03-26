@@ -69,4 +69,131 @@ Flight::route('DELETE /clientes', function () {
 });
 
 
+/* FALTA PUUUUUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT */
+
+
+
+Flight::route('GET /hoteles', function () {
+	$sentenciaTodos = Flight::db()->prepare("SELECT * from hoteles");
+	$sentenciaTodos->execute();
+	$datos=$sentenciaTodos->fetchAll();
+	Flight::json($datos);
+});
+
+/* ENVIANDO O ID, FALLA */
+Flight::route('GET /hoteles', function () {
+	$id = Flight::request()->data->id;
+	$sentenciaId = Flight::db()->prepare("SELECT * FROM hoteles WHERE id=:id");
+	$sentenciaId->bindParam(':id', $id);
+	$sentenciaId->execute();
+	$datosId = $sentenciaId->fetchAll();
+	Flight::json($datosId); 
+});
+
+Flight::route('POST /hoteles', function () {
+	$hotel = Flight::request()->data->hotel;
+	$direccion = Flight::request()->data->direccion;
+	$telefono = Flight::request()->data->telefono;
+	$email = Flight::request()->data->email;
+	$sql ="INSERT INTO hoteles(hotel, direccion, telefono, email) VALUES (?, ?, ?, ?)";
+	$sentencia = Flight::db()->prepare($sql);
+	$sentencia->bindParam(1, $hotel);
+	$sentencia->bindParam(2, $direccion);
+	$sentencia->bindParam(3, $telefono);
+	$sentencia->bindParam(4, $email);
+	$sentencia->execute();
+	Flight::jsonp(["Hotel agregado correctamente."]);
+
+    /*
+    {
+    "hotel": "hotel PRUEBA",
+    "direccion": "rua PRUEBA",
+    "telefono": 600000000,
+    "email": "hotele@PRUEBAS.es"
+    }
+    */
+ 
+});
+
+Flight::route('DELETE /hoteles', function () {
+	 $id = Flight::request()->data->id;
+	 $sql ="DELETE FROM hoteles WHERE id=?";
+	 $sentencia = Flight::db()->prepare($sql);
+	 $sentencia->bindParam(1, $id);
+	 $sentencia->execute();
+	 Flight::jsonp(["Hotel eliminado con id: $id"]);
+});
+
+
+
+/* FALTA PUUUUUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT */
+
+
+
+
+
+
+/* RESERVAS */
+
+Flight::route('GET /reservas', function () {
+	$sentenciaTodos = Flight::db()->prepare("SELECT * from reservas");
+	$sentenciaTodos->execute();
+	$datos=$sentenciaTodos->fetchAll();
+	Flight::json($datos);
+});
+
+/* ENVIANDO O ID, FALLA */
+Flight::route('GET /reservas', function () {
+	$id = Flight::request()->data->id;
+	$sentenciaId = Flight::db()->prepare("SELECT * FROM reservas WHERE id=:id");
+	$sentenciaId->bindParam(':id', $id);
+	$sentenciaId->execute();
+	$datosId = $sentenciaId->fetchAll();
+	Flight::json($datosId); 
+});
+
+Flight::route('POST /reservas', function () {
+	$id_cliente = Flight::request()->data->id_cliente;
+	$id_hotel = Flight::request()->data->id_hotel;
+	$fecha_reserva = Flight::request()->data->fecha_reserva;
+	$fecha_entrada = Flight::request()->data->fecha_entrada;
+	$fecha_salida = Flight::request()->data->fecha_salida;
+	$sql ="INSERT INTO reservas(id_cliente, id_hotel, fecha_reserva, fecha_entrada, fecha_salida) VALUES (?, ?, ?, ?, ?)";
+	$sentencia = Flight::db()->prepare($sql);
+	$sentencia->bindParam(1, $id_cliente);
+	$sentencia->bindParam(2, $id_hotel);
+	$sentencia->bindParam(3, $fecha_reserva);
+	$sentencia->bindParam(4, $fecha_entrada);
+	$sentencia->bindParam(5, $fecha_salida);
+	$sentencia->execute();
+	Flight::jsonp(["Hotel agregado correctamente."]);
+
+    /*
+    {
+    "id_cliente": "hotel PRUEBA",
+    "id_hotel": "rua PRUEBA",
+    "fecha_reserva": 600000000,
+    "fecha_entrada": 600000000,
+    "fecha_salida": "hotele@PRUEBAS.es"
+    }
+    */
+ 
+});
+
+Flight::route('DELETE /reservas', function () {
+	 $id = Flight::request()->data->id;
+	 $sql ="DELETE FROM reservas WHERE id=?";
+	 $sentencia = Flight::db()->prepare($sql);
+	 $sentencia->bindParam(1, $id);
+	 $sentencia->execute();
+	 Flight::jsonp(["Hotel eliminado con id: $id"]);
+});
+
+
+
+/* FALTA PUUUUUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT */
+
+
+
+
 Flight::start();
