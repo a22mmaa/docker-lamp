@@ -14,21 +14,29 @@ Flight::route('/saludar', function () {
 });
 
 
-Flight::route('GET /clientes', function () {
-	$sentenciaTodos = Flight::db()->prepare("SELECT * from clientes");
-	$sentenciaTodos->execute();
-	$datos=$sentenciaTodos->fetchAll();
-	Flight::json($datos);
-});
-
 /* ENVIANDO O ID, FALLA */
 Flight::route('GET /clientes', function () {
+    
 	$id = Flight::request()->data->id;
-	$sentenciaId = Flight::db()->prepare("SELECT * FROM clientes WHERE id=:id");
-	$sentenciaId->bindParam(':id', $id);
-	$sentenciaId->execute();
-	$datosId = $sentenciaId->fetchAll();
-	Flight::json($datosId); 
+
+    if ($id === null) {
+        $sentenciaTodos = Flight::db()->prepare("SELECT * from clientes");
+        $sentenciaTodos->execute();
+        $datos=$sentenciaTodos->fetchAll();
+        Flight::json($datos);
+    } else {
+        $sentenciaId = Flight::db()->prepare("SELECT * FROM clientes WHERE id=:id");
+        $sentenciaId->bindParam(':id', $id);
+        $sentenciaId->execute();
+        $datosId = $sentenciaId->fetchAll();
+        Flight::json($datosId); 
+    }
+
+    /* PROBA
+    {
+    "id": 2
+    }
+    */
 });
 
 Flight::route('POST /clientes', function () {
@@ -47,7 +55,7 @@ Flight::route('POST /clientes', function () {
 	$sentencia->execute();
 	Flight::jsonp(["Cliente agregado correctamente."]);
 
-    /*
+    /* PROBA
     {
     "nombre": "IvánPRUEBA",
     "apellidos": "García",
@@ -66,10 +74,44 @@ Flight::route('DELETE /clientes', function () {
 	 $sentencia->bindParam(1, $id);
 	 $sentencia->execute();
 	 Flight::jsonp(["Cliente eliminado con id: $id"]);
+
+     /* PROBA
+    {
+    "id": 3
+    }
+    */
 });
 
 
-/* FALTA PUUUUUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT */
+Flight::route('PUT /clientes', function () {
+    $id = Flight::request()->data->id;
+    $apellidos = Flight::request()->data->apellidos;
+    $edad = Flight::request()->data->edad;
+    $email = Flight::request()->data->email;
+    $telefono = Flight::request()->data->telefono;
+
+    $sql = "UPDATE clientes SET apellidos=?, edad=?, email=?, telefono=? WHERE id=?";
+    $sentencia = Flight::db()->prepare($sql);
+    $sentencia->bindParam(5, $id);
+    $sentencia->bindParam(1, $apellidos);
+    $sentencia->bindParam(2, $edad);
+    $sentencia->bindParam(3, $email);
+    $sentencia->bindParam(4, $telefono);
+
+	 $sentencia->execute();
+     Flight::jsonp(["Cliente con id: $id actualizado correctamente"]);
+
+    /* PROBA
+    {
+        "id": 1,
+        "apellidos": "apelidoPruebaPUT",
+        "edad": 200,
+        "email": "ivan@garcia.PruebaPUT",
+        "telefono": 666666666
+    }
+    */
+});
+    
 
 
 
@@ -126,9 +168,31 @@ Flight::route('DELETE /hoteles', function () {
 
 
 
-/* FALTA PUUUUUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT */
+Flight::route('PUT /hoteles', function () {
+    $id = Flight::request()->data->id;
+	$direccion = Flight::request()->data->direccion;
+	$email = Flight::request()->data->email;
+	$telefono = Flight::request()->data->telefono;
 
+    $sql = "UPDATE hoteles SET direccion=?, email=?, telefono=? WHERE id=?";
+    $sentencia = Flight::db()->prepare($sql);
+    $sentencia->bindParam(4, $id);
+    $sentencia->bindParam(1, $direccion);
+    $sentencia->bindParam(2, $email);
+    $sentencia->bindParam(3, $telefono);
 
+	 $sentencia->execute();
+     Flight::jsonp(["Hotel con id: $id actualizado correctamente"]);
+
+    /* PROBA
+    {
+        "id": 1,
+        "direccion": "rua de PROBAS PUT",
+        "email": "hotel@garcia.PruebaPUT",
+        "telefono": 666666666
+    }
+    */
+});
 
 
 
@@ -170,11 +234,11 @@ Flight::route('POST /reservas', function () {
 
     /*
     {
-    "id_cliente": "hotel PRUEBA",
-    "id_hotel": "rua PRUEBA",
-    "fecha_reserva": 600000000,
-    "fecha_entrada": 600000000,
-    "fecha_salida": "hotele@PRUEBAS.es"
+    "id_cliente": 5,
+    "id_hotel": 5,
+    "fecha_reserva": "2050-11-29",
+    "fecha_entrada": "2060-11-29",
+    "fecha_salida": "2070-11-29"
     }
     */
  
@@ -187,11 +251,38 @@ Flight::route('DELETE /reservas', function () {
 	 $sentencia->bindParam(1, $id);
 	 $sentencia->execute();
 	 Flight::jsonp(["Hotel eliminado con id: $id"]);
+
+     /*
+    {
+    "id": 50
+    }
+    */
 });
 
 
 
-/* FALTA PUUUUUTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT */
+Flight::route('PUT /reservas', function () {
+    $id = Flight::request()->data->id;
+	$fecha_entrada = Flight::request()->data->fecha_entrada;
+	$fecha_salida = Flight::request()->data->fecha_salida;
+
+    $sql = "UPDATE reservas SET fecha_entrada=?, fecha_salida=? WHERE id=?";
+    $sentencia = Flight::db()->prepare($sql);
+    $sentencia->bindParam(3, $id);
+    $sentencia->bindParam(1, $fecha_entrada);
+    $sentencia->bindParam(2, $fecha_salida);
+
+	 $sentencia->execute();
+     Flight::jsonp(["Reserva con id: $id actualizada correctamente"]);
+
+    /* PROBA
+    {
+        "id": 52,
+        "fecha_entrada": "2160-12-29",
+        "fecha_salida": "2170-12-30"
+    }
+    */
+});
 
 
 
