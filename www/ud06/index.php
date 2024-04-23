@@ -14,10 +14,10 @@ Flight::route('/saludar', function () {
 });
 
 
-/* ENVIANDO O ID, FALLA */
+
 Flight::route('GET /clientes', function () {
     
-	$id = Flight::request()->data->id;
+	$id = Flight::request()->query["id"];
 
     if ($id === null) {
         $sentenciaTodos = Flight::db()->prepare("SELECT * from clientes");
@@ -116,21 +116,23 @@ Flight::route('PUT /clientes', function () {
 
 
 Flight::route('GET /hoteles', function () {
-	$sentenciaTodos = Flight::db()->prepare("SELECT * from hoteles");
-	$sentenciaTodos->execute();
-	$datos=$sentenciaTodos->fetchAll();
-	Flight::json($datos);
+
+    $id = Flight::request()->query["id"];
+
+    if ($id === null) {
+        $sentenciaTodos = Flight::db()->prepare("SELECT * from hoteles");
+        $sentenciaTodos->execute();
+        $datos=$sentenciaTodos->fetchAll();
+        Flight::json($datos);
+    } else {
+        $sentenciaId = Flight::db()->prepare("SELECT * FROM hoteles WHERE id=:id");
+        $sentenciaId->bindParam(':id', $id);
+        $sentenciaId->execute();
+        $datosId = $sentenciaId->fetchAll();
+        Flight::json($datosId); 
+    }
 });
 
-/* ENVIANDO O ID, FALLA */
-Flight::route('GET /hoteles', function () {
-	$id = Flight::request()->data->id;
-	$sentenciaId = Flight::db()->prepare("SELECT * FROM hoteles WHERE id=:id");
-	$sentenciaId->bindParam(':id', $id);
-	$sentenciaId->execute();
-	$datosId = $sentenciaId->fetchAll();
-	Flight::json($datosId); 
-});
 
 Flight::route('POST /hoteles', function () {
 	$hotel = Flight::request()->data->hotel;
@@ -200,21 +202,23 @@ Flight::route('PUT /hoteles', function () {
 /* RESERVAS */
 
 Flight::route('GET /reservas', function () {
-	$sentenciaTodos = Flight::db()->prepare("SELECT * from reservas");
-	$sentenciaTodos->execute();
-	$datos=$sentenciaTodos->fetchAll();
-	Flight::json($datos);
+
+    $id = Flight::request()->query["id"];
+
+    if ($id === null) {
+        $sentenciaTodos = Flight::db()->prepare("SELECT * from reservas");
+        $sentenciaTodos->execute();
+        $datos=$sentenciaTodos->fetchAll();
+        Flight::json($datos);
+    } else {
+        $sentenciaId = Flight::db()->prepare("SELECT * FROM reservas WHERE id=:id");
+        $sentenciaId->bindParam(':id', $id);
+        $sentenciaId->execute();
+        $datosId = $sentenciaId->fetchAll();
+        Flight::json($datosId); 
+    }
 });
 
-/* ENVIANDO O ID, FALLA */
-Flight::route('GET /reservas', function () {
-	$id = Flight::request()->data->id;
-	$sentenciaId = Flight::db()->prepare("SELECT * FROM reservas WHERE id=:id");
-	$sentenciaId->bindParam(':id', $id);
-	$sentenciaId->execute();
-	$datosId = $sentenciaId->fetchAll();
-	Flight::json($datosId); 
-});
 
 Flight::route('POST /reservas', function () {
 	$id_cliente = Flight::request()->data->id_cliente;
