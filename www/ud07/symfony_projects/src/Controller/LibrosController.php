@@ -20,7 +20,20 @@ class LibrosController extends AbstractController
 
     #[Route('/sobre')]
     public function sobre() {
-        return new Response('Aquí estará o about desta páxina');
+
+        $afeccions = [
+            'Videoxogos',
+            'Programar',
+            'Ler',
+        ];
+
+        return $this->render('libros/sobre.html.twig', [
+            'title' => 'Sobre esta web',
+            'nome' => 'Manuel',
+            'n_exemplares' => 128,
+            'mail' => 'manuel@mail.com',
+            'afeccions' => $afeccions,
+        ]);
     }
 
     #[Route('/explorar/{xenero}')]
@@ -42,12 +55,23 @@ class LibrosController extends AbstractController
             'CMD - Comedia',
             'DRM - Drama',
             'INF - Infantil',
-            'POE - Poesía',
             'TIC - Tecnoloxías Información e Comunicación',
             'XVN - Xuvenil',
         ];
 
-        return new Response('Abreviaturas da web');
+        $tipos = [
+            ['abreviatura' => 'bade', 'expansion' => 'Banda Deseñada'],
+            ['abreviatura' => 'cate', 'expansion' => 'Catálogo de exposición'],
+            ['abreviatura' => 'ensa', 'expansion' => 'Ensaio'],
+            ['abreviatura' => 'nvl', 'expansion' => 'Novela'],
+            ['abreviatura' => 'poes', 'expansion' => 'Poesía'],
+        ];
+
+        return $this->render('libros/abreviaturas.html.twig', [
+            'title' => 'Abreviaturas da colección',
+            'xeneros' => $xeneros,
+            'tipos' => $tipos,
+        ]);
     }
 
 
