@@ -12,7 +12,12 @@ class LibrosController
     #[Route('/')]
     public function homepage()
     {
-        return new Response('Benvid@!');
+        return new Response('Benvid@!!');
+    }
+
+    #[Route('/sobre')]
+    public function sobre() {
+        return new Response('Aquí estará o about desta páxina');
     }
 
     #[Route('/explorar/{xenero}')]
