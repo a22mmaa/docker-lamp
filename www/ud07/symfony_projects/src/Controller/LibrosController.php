@@ -32,5 +32,20 @@ class LibrosController
         return new Response('Xénero: ' . $title);
     }
 
+    #[Route('/abreviaturas')]
+    public function abreviaturas()
+    {
+        $xeneros = [
+            'CMD - Comedia',
+            'DRM - Drama',
+            'INF - Infantil',
+            'POE - Poesía',
+            'TIC - Tecnoloxías Información e Comunicación',
+            'XVN - Xuvenil',
+        ];
+
+        return new Response('Abreviaturas da web');
+    }
+
 
 }
