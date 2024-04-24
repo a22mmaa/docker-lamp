@@ -4,15 +4,18 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use function Symfony\Component\String\u;
 
-class LibrosController
+class LibrosController extends AbstractController
 {
 
     #[Route('/')]
     public function homepage()
     {
-        return new Response('Benvid@!!');
+        return $this->render('libros/homepage.html.twig', [
+            'title' => 'A miña biblioteca',
+        ]);
     }
 
     #[Route('/sobre')]
