@@ -14,7 +14,7 @@ class LibrosController extends AbstractController
     public function homepage()
     {
         return $this->render('libros/homepage.html.twig', [
-            'title' => 'A miña biblioteca',
+            'title' => 'Inicio',
         ]);
     }
 
@@ -44,6 +44,11 @@ class LibrosController extends AbstractController
         } else {
             $title = 'Todos os xéneros';
         }
+
+        return $this->render('libros/xeneros.html.twig', [
+            'title' => $title,
+            'xenero' => $xenero
+        ]);
 
         return new Response('Xénero: ' . $title);
     }
