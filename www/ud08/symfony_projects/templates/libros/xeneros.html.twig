@@ -1,0 +1,21 @@
+{% extends 'bootstrap/base.html.twig' %}
+
+{% block body %}
+
+{# Título desta páxina #}
+<h1>Explorar {{ title | lower }}</h1>
+
+    <div>
+      {% if xenero == null %}
+        Sección dedicada a explorar todos os xéneros da biblioteca.
+      {% endif %}
+      {% if xenero != null %}
+        Sección dedicada ao xénero: {{ title }}
+      {% endif %}
+
+    </div>
+  </body>
+</html>
+
+{% endblock %}
+
