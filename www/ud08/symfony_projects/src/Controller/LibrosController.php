@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use function Symfony\Component\String\u;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 
 class LibrosController extends AbstractController
 {
@@ -37,17 +39,24 @@ class LibrosController extends AbstractController
     }
 
     #[Route('/explorar/{xenero}')]
-    public function explorar(string $xenero = null)
+    public function fasvs(HttpClientInterface $httpClient, CacheInterface $cache, string $xenero = null): Response
     {
         if ($xenero) {
             $title = u(str_replace('-', ' ', $xenero))->title(true);
+            $libros = '';
         } else {
             $title = 'Todos os xéneros';
+            $libros = $cache->get('libros_data', function(CacheItemInterface $cacheItem) use($httpClient){
+                $cacheItem->expiresAfter(10);
+                $response = $httpClient->request('GET', 'https://gist.githubusercontent.com/sanket143/5346f04575851a5228b8c5c1e99496af/raw/44dd530d524fa8e467d61680d0c713736220170f/books.json');
+                return $response->toArray();
+            });
         }
 
         return $this->render('libros/xeneros.html.twig', [
             'title' => $title,
-            'xenero' => $xenero
+            'xenero' => $xenero,
+            'libros' => $libros
         ]);
 
         return new Response('Xénero: ' . $title);
@@ -78,6 +87,5 @@ class LibrosController extends AbstractController
             'tipos' => $tipos,
         ]);
     }
-
 
 }
