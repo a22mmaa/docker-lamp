@@ -1,4 +1,0 @@
-composer require templates
-composer require debug
-composer require symfony/ux-twig-component
-composer require symfony/http-client
