@@ -1,5 +1,8 @@
 
 1)
+docker compose up -d
+
+ATTATCH SHELL DESDE DOCKER
 cd symfony_projects
 
 2)
@@ -15,7 +18,11 @@ composer require symfony/ux-twig-component symfony/http-client
 4)
 sudo chown -R vagrant symfony_projects
 
-
+extras)
+sudo apt install composer
+sudo apt-get install php-mbstring
+(sudo apt-get install php8.2-mbstring)
+sudo chown vagrant composer.json
 
 
 
