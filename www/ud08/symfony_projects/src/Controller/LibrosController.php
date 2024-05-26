@@ -55,7 +55,6 @@ class LibrosController extends AbstractController
             $libros = '';
         } else {
             $title = 'Todos os xéneros';
-            //Alternativa? ItemInterface $cacheItem
             $libros = $cache->get('libros_data', function(CacheItemInterface $cacheItem) use ($httpClient) {
                 $cacheItem->expiresAfter(10);
                 $response = $httpClient->request('GET', 'https://gist.githubusercontent.com/sanket143/5346f04575851a5228b8c5c1e99496af/raw/44dd530d524fa8e467d61680d0c713736220170f/books.json');
