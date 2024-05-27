@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{# Título desta páxina #}
+<h1>{{ title}}</h1>
+
+    <div>
+
+        {% for pet in pets.pets %}
+            <h2>{{ pet.name }}</h2>
+            <img src="{{ pet.photo }}" width="100px" height="auto"/>
+          <ul>
+            <li>
+              Especie: {{ pet.species }}
+            </li>
+             {% if pet.favFoods is defined %}
+                <li>
+                Comidas favoritas:
+                    <ul>
+                        {% for favf in pet.favFoods %}
+                            <li>
+                                {{favf | raw}}
+                            </li>
+                        {% endfor %}
+                    </ul>
+             {% endif %}
+            <li>
+              Ano de nacemento: {{ pet.birthYear }}
+            </li>
+          </ul>
+          
+        {% endfor %}
+
+    </div>
+  </body>
+</html>
+
+{% endblock %}
+
