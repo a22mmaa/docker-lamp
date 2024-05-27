@@ -65,7 +65,6 @@ Flight::route('POST /customers', function () {
 
 
     /*
-    
 {
   "customerNumber": "001",
   "customerName": "Dragon Souveniers, Ltd.",
